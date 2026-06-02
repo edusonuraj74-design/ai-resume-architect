@@ -1,0 +1,39 @@
+body {
+    background-color: lightgray;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    width: 500px;
+    background-color: white;
+    padding: 20px;
+    margin: 50px auto;
+    border-radius: 10px;
+}
+
+h1 {
+    color: blue;
+}
+
+h2 {
+    color: darkgreen;
+}
+input {
+    width: 90%;
+    padding: 10px;
+}
+
+button {
+    padding: 10px 20px;
+}
+.resume {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.resume h2 {
+    text-align: center;
+}
