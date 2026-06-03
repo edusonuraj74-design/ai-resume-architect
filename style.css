@@ -37,3 +37,21 @@ button {
 .resume h2 {
     text-align: center;
 }
+@media print {
+
+    body * {
+        visibility: hidden;
+    }
+
+    .resume, .resume * {
+        visibility: visible;
+    }
+
+    .resume {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border: none;
+    }
+}

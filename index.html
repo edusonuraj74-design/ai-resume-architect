@@ -43,13 +43,21 @@
         Generate Resume
     </button>
 
+   <button onclick="downloadResume()">
+    Download Resume
+</button>
+
+<button onclick="printResume()">
+    Print Resume
+</button>
+
     <hr>
 
     <div class="resume">
 
         <h2>Resume Preview</h2>
-        
-        <img id="showPhoto" width="120">
+
+        <!--<img id="showPhoto" width="120">-->
 
         <p id="showName"></p>
         <p id="showEmail"></p>
@@ -58,12 +66,15 @@
         <p id="showSkills"></p>
         <p id="showProject"></p>
 
+         <h3>ATS Score</h3>
+        <p id="atsScore"></p>
+
     </div>
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="script.js"></script>
 
- 
 </body>
 </html>
