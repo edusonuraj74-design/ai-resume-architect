@@ -12,6 +12,12 @@ function generateResume() {
     let skills = document.getElementById("skills").value;
     let project = document.getElementById("project").value;
     let education = document.getElementById("education").value;
+    let photo = document.getElementById("photo").files[0];
+
+   if(photo){
+    document.getElementById("showPhoto").src =
+        URL.createObjectURL(photo);
+}
 
     document.getElementById("showName").innerHTML =
         "Name: " + name;
