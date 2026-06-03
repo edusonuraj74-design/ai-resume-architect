@@ -4,25 +4,35 @@
     <title>My First Website</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="card">
+<div class="card">
 
     <h1>Resume Builder</h1>
 
     <label>Name:</label>
     <input type="text" id="name">
-
     <br><br>
 
     <label>Email:</label>
     <input type="email" id="email">
-
     <br><br>
 
     <label>Phone:</label>
     <input type="text" id="phone">
+    <br><br>
 
+    <label>Education:</label>
+    <input type="text" id="education">
+    <br><br>
+
+    <label>Skills:</label>
+    <input type="text" id="skills">
+    <br><br>
+
+    <label>Project:</label>
+    <input type="text" id="project">
     <br><br>
 
     <button onclick="generateResume()">
@@ -31,36 +41,23 @@
 
     <hr>
 
-    <h2>Resume Preview</h2>
     <div class="resume">
 
-    <h2>Resume Preview</h2>
+        <h2>Resume Preview</h2>
 
-    <p id="showName"></p>
-    <p id="showEmail"></p>
-    <p id="showPhone"></p>
-    <p id="showSkills"></p>
-    <p id="showProject"></p>
+        <p id="showName"></p>
+        <p id="showEmail"></p>
+        <p id="showPhone"></p>
+        <p id="showEducation"></p>
+        <p id="showSkills"></p>
+        <p id="showProject"></p>
 
-</div>
-
-    <p id="showName"></p>
-    <p id="showEmail"></p>
-    <p id="showPhone"></p>
-    <label>Skills:</label>
-    <p id="showSkills"></p>
-<p id="showProject"></p>
-<input type="text" id="skills">
-<label>Project:</label>
-<input type="text" id="project">
-
-<br><br>
-
-<br><br>
+    </div>
 
 </div>
 
 <script src="script.js"></script>
 
+ 
 </body>
 </html>
