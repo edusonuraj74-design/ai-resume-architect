@@ -20,15 +20,13 @@ function generateResume() {
     let skills = document.getElementById("skills").value;
     let project = document.getElementById("project").value;
     let education = document.getElementById("education").value;
-   /* let photo = document.getElementById("photo").files[0];
+    let photo = document.getElementById("photo").files[0];
 
-    // Photo Preview
     if (photo) {
         document.getElementById("showPhoto").src =
             URL.createObjectURL(photo);
-    }*/
+    }
 
-    // ATS Score
     let score = 0;
 
     if (name) score += 20;
@@ -40,7 +38,19 @@ function generateResume() {
     document.getElementById("atsScore").innerHTML =
         "ATS Score: " + score + "/100";
 
-    // Resume Preview
+    if (score < 60) {
+        document.getElementById("atsSuggestion").innerHTML =
+            "Suggestion: Add more skills and projects.";
+    }
+    else if (score < 100) {
+        document.getElementById("atsSuggestion").innerHTML =
+            "Suggestion: Good resume, add more details.";
+    }
+    else {
+        document.getElementById("atsSuggestion").innerHTML =
+            "Suggestion: Excellent Resume!";
+    }
+
     document.getElementById("showName").innerHTML =
         "Name: " + name;
 
@@ -77,4 +87,9 @@ function clearForm() {
     document.getElementById("showSkills").innerHTML = "";
     document.getElementById("showProject").innerHTML = "";
     document.getElementById("atsScore").innerHTML = "";
+    document.getElementById("atsSuggestion").innerHTML = "";
+}
+
+function toggleDarkMode() {
+    document.body.style.backgroundColor = "black";
 }

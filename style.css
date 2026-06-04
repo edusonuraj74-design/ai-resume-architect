@@ -54,4 +54,23 @@ button {
         width: 100%;
         border: none;
     }
+   .dark-mode {
+    background-color: black;
+    color: white;
+}
+
+.dark-mode .card {
+    background-color: #222;
+    color: white;
+}
+
+.dark-mode input {
+    background-color: #333;
+    color: white;
+}
+
+.dark-mode .resume {
+    background-color: #333;
+    color: white;
+}
 }
