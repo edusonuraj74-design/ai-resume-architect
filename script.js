@@ -9,18 +9,45 @@ function printResume() {
 function generateResume() {
 
     let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let education = document.getElementById("education").value;
+    let skills = document.getElementById("skills").value;
+    let project = document.getElementById("project").value;
+    let photo = document.getElementById("photo").files[0];
 
     if (name === "") {
         alert("Please enter your name");
         return;
     }
+    if (email === "") {
+        alert("Please enter your email");
+        return;
+    }
+    if (phone === "") {
+        alert("Please enter your phone number");
+        return;
+    }
+    if (education === "") {
+        alert("Please enter your education");
+        return;
+    }
+    if (skills === "") {
+        alert("Please enter your skills");
+        return;
+    }
+    if (project === "") {
+        alert("Please enter your project");
+        return;
+    }
 
-    let email = document.getElementById("email").value;
-    let phone = document.getElementById("phone").value;
-    let skills = document.getElementById("skills").value;
-    let project = document.getElementById("project").value;
-    let education = document.getElementById("education").value;
-    let photo = document.getElementById("photo").files[0];
+    localStorage.setItem("name", name);
+    localStorage.setItem("email", email);
+    localStorage.setItem("phone", phone);
+    localStorage.setItem("education", education);
+    localStorage.setItem("skills", skills);
+    localStorage.setItem("project", project);
+
 
     if (photo) {
         document.getElementById("showPhoto").src =
@@ -56,6 +83,18 @@ function generateResume() {
 
     document.getElementById("progressBar").innerHTML =
     score + "%";
+
+    let template = document.getElementById("template").value;
+
+   let resume = document.querySelector(".resume");
+
+    resume.classList.remove(
+    "simple",
+    "professional",
+    "modern"
+);
+
+resume.classList.add(template);
 
     document.getElementById("showName").innerHTML =
         "Name: " + name;
@@ -94,8 +133,35 @@ function clearForm() {
     document.getElementById("showProject").innerHTML = "";
     document.getElementById("atsScore").innerHTML = "";
     document.getElementById("atsSuggestion").innerHTML = "";
+
+    localStorage.clear();
+
+    
+   
+
 }
 
 function toggleDarkMode() {
-    document.body.style.backgroundColor = "black";
+    document.body.classList.toggle("dark-mode");
+
+}
+window.onload = function() {
+
+    document.getElementById("name").value =
+        localStorage.getItem("name") || "";
+
+    document.getElementById("email").value =
+        localStorage.getItem("email") || "";
+
+    document.getElementById("phone").value =
+        localStorage.getItem("phone") || "";
+
+    document.getElementById("education").value =
+        localStorage.getItem("education") || "";
+
+    document.getElementById("skills").value =
+        localStorage.getItem("skills") || "";
+
+    document.getElementById("project").value =
+        localStorage.getItem("project") || "";
 }
