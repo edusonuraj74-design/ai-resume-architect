@@ -51,6 +51,12 @@ function generateResume() {
             "Suggestion: Excellent Resume!";
     }
 
+    document.getElementById("progressBar").style.width =
+    score + "%";
+
+    document.getElementById("progressBar").innerHTML =
+    score + "%";
+
     document.getElementById("showName").innerHTML =
         "Name: " + name;
 
