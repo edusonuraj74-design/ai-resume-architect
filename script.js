@@ -78,6 +78,26 @@ function generateResume() {
             "Suggestion: Excellent Resume!";
     }
 
+    let strength = "";
+
+  if(score < 60){
+    strength = "Weak";
+}
+   else if(score < 100){
+    strength = "Good";
+}
+    else{
+    strength = "Excellent";
+}
+
+document.getElementById("strength").innerHTML =
+    "Resume Strength: " + strength;
+
+ let skillArray = skills.split(",");
+
+document.getElementById("skillCount").innerHTML =
+    "Total Skills: " + skillArray.length;
+
     document.getElementById("progressBar").style.width =
     score + "%";
 
@@ -95,6 +115,16 @@ function generateResume() {
 );
 
 resume.classList.add(template);
+
+let theme = document.getElementById("theme").value;
+
+resume.classList.remove(
+    "blue",
+    "green",
+    "red"
+);
+
+resume.classList.add(theme);
 
     document.getElementById("showName").innerHTML =
         "Name: " + name;
@@ -133,6 +163,7 @@ function clearForm() {
     document.getElementById("showProject").innerHTML = "";
     document.getElementById("atsScore").innerHTML = "";
     document.getElementById("atsSuggestion").innerHTML = "";
+    document.getElementById("skillCount").innerHTML = "";
 
     localStorage.clear();
 
