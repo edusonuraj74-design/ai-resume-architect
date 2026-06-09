@@ -8,6 +8,16 @@ function printResume() {
 
 function generateResume() {
 
+    let certification =
+  document.getElementById("certification").value;
+
+  let languages =
+document.getElementById("languages").value;
+
+let summary =
+document.getElementById("summary").value;
+
+
     let resume = document.querySelector(".resume");
 
    let template = document.getElementById("template").value;
@@ -79,8 +89,12 @@ resume.classList.add(theme);
     localStorage.setItem("skills", skills);
     localStorage.setItem("project", project);
     localStorage.setItem("experience", experience);
+    localStorage.setItem("certification", certification);
+    localStorage.setItem("languages", languages);
+    localStorage.setItem("summary", summary);
     localStorage.setItem("linkedin", linkedin);
     localStorage.setItem("github", github);
+   
 
     if (photo) {
         document.getElementById("showPhoto").src =
@@ -96,12 +110,33 @@ resume.classList.add(theme);
     if (skills) score++;
     if (project) score++;
     if (experience) score++;
+    if (certification) score++;
 
-    score = Math.round((score / 6) * 100);
+    score = Math.round((score / 7) * 100);
 
     document.getElementById("atsScore").innerHTML =
         "ATS Score: " + score + "/100";
-        let strength = "";
+
+ let completedFields = 0;
+
+if(name) completedFields++;
+if(email) completedFields++;
+if(phone) completedFields++;
+if(education) completedFields++;
+if(skills) completedFields++;
+if(project) completedFields++;
+if(experience) completedFields++;
+if(linkedin) completedFields++;
+if(github) completedFields++;
+if(certification) completedFields++;
+if(languages) completedFields++;
+if(summary) completedFields++;
+
+let completion =
+Math.round((completedFields / 12) * 100);
+
+document.getElementById("completion").innerHTML =
+    "Resume Completion: " + completion + "%";
 
 if(score < 60){
     strength = "Weak";
@@ -112,6 +147,15 @@ else if(score < 100){
 else{
     strength = "Excellent";
 }
+
+document.getElementById("showCertification").innerHTML =
+    "Certification: " + certification;
+
+    document.getElementById("showLanguages").innerHTML =
+    "Languages: " + languages;
+
+    document.getElementById("showSummary").innerHTML =
+    "Summary: " + summary;
 
 document.getElementById("strength").innerHTML =
     "Resume Strength: " + strength;
@@ -165,6 +209,12 @@ function clearForm() {
     document.getElementById("github").value = "";
     document.getElementById("linkedin").value = "";
     document.getElementById("experience").value = "";
+    document.getElementById("certification").value = "";
+    document.getElementById("languages").value = "";
+    document.getElementById("summary").value = "";
+
+    
+
     
 
 
@@ -184,6 +234,9 @@ function clearForm() {
     document.getElementById("showGitHub").innerHTML = "";
     document.getElementById("showExperience").innerHTML = "";
     document.getElementById("strength").innerHTML = "";
+    document.getElementById("showCertification").innerHTML = "";
+    document.getElementById("showLanguages").innerHTML = "";
+    document.getElementById("showSummary").innerHTML = "";
 
     localStorage.clear();
 
@@ -224,4 +277,13 @@ window.onload = function() {
 
     document.getElementById("github").value =
         localStorage.getItem("github") || "";
+
+    document.getElementById("certification").value =
+    localStorage.getItem("certification") || "";
+
+    document.getElementById("languages").value =
+        localStorage.getItem("languages") || "";
+
+    document.getElementById("summary").value =
+        localStorage.getItem("summary") || "";
 }
