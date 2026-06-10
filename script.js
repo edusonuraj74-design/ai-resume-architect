@@ -1,5 +1,9 @@
 function downloadResume() {
-    window.print();
+    const element = document.querySelector(".resume");
+
+    html2pdf()
+        .from(element)
+        .save("Resume.pdf");
 }
 
 function printResume() {
@@ -138,6 +142,9 @@ Math.round((completedFields / 12) * 100);
 document.getElementById("completion").innerHTML =
     "Resume Completion: " + completion + "%";
 
+    let strength = "";
+
+
 if(score < 60){
     strength = "Weak";
 }
@@ -167,7 +174,6 @@ document.getElementById("skillCount").innerHTML =
 
 document.getElementById("atsSuggestion").innerHTML =
     "Suggestion: Add more skills and projects.";
-
     // Preview
     document.getElementById("showName").innerHTML =
         "Name: " + name;
@@ -195,6 +201,9 @@ document.getElementById("atsSuggestion").innerHTML =
 
     document.getElementById("showGitHub").innerHTML =
         "GitHub: " + github;
+
+        document.getElementById("progressBar").style.width =
+        completion + "%";
 }
 
 function clearForm() {
