@@ -206,6 +206,50 @@ document.getElementById("atsSuggestion").innerHTML =
         completion + "%";
 }
 
+ // AI Summary
+    fetch("http://localhost:3000/api/generate-summary", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name,
+            skills
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("showSummary").innerText =
+            "AI Summary: " + data.summary;
+    })
+    .catch(err => console.log(err));
+
+    // ATS Backend
+    fetch("http://localhost:3000/api/analyze", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            skills,
+            project
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("atsScore").innerText =
+            "ATS Score: " + data.atsScore + "/100";
+
+        document.getElementById("atsSuggestion").innerText =
+            data.suggestion;
+    })
+    .catch(err => console.log(err));
+}
+
+// =======================
+// CLEAR FORM
+// =======================
+
 function clearForm() {
 
     document.getElementById("name").value = "";
