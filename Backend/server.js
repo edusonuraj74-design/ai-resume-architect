@@ -1,18 +1,30 @@
+console.log("NEW SERVER FILE LOADED");
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
+
+
+console.log(__dirname);
+console.log(path.join(__dirname, "../index.html"));
+
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Home route
+// Serve frontend files (index.html, style.css, script.js)
+app.use(express.static(path.join(__dirname, "../")));
+
+// Home Route
 app.get("/", (req, res) => {
-    res.send("AI Resume Architect Backend Running");
+    res.sendFile(path.join(__dirname, "../index.html"));
 });
 
-// API Status check
+
+
+// API Status Check
 app.get("/api/status", (req, res) => {
     res.json({
         success: true,
@@ -20,7 +32,7 @@ app.get("/api/status", (req, res) => {
     });
 });
 
-// 🔥 Generate Resume Summary API
+// Generate Resume Summary API
 app.post("/api/generate-summary", (req, res) => {
     const { name, skills } = req.body;
 
@@ -37,7 +49,7 @@ app.post("/api/generate-summary", (req, res) => {
     });
 });
 
-// 🔥 ATS Score Analyzer API
+// ATS Score Analyzer API
 app.post("/api/analyze", (req, res) => {
     const { skills, project } = req.body;
 
@@ -67,7 +79,7 @@ app.post("/api/analyze", (req, res) => {
     });
 });
 
-// Start server
+// Start Server
 app.listen(3000, () => {
     console.log("🚀 Server running on http://localhost:3000");
 });

@@ -1,10 +1,27 @@
 function downloadResume() {
     const element = document.querySelector(".resume");
 
-    html2pdf()
-        .from(element)
-        .save("Resume.pdf");
+    console.log("Resume Content:");
+    console.log(element.innerHTML);
+
+   setTimeout(() => {
+        html2pdf(element, {
+            margin: 10,
+            filename: "Resume.pdf",
+            image: { type: "jpeg", quality: 1 },
+            html2canvas: {
+                scale: 2,
+                useCORS: true
+            },
+            jsPDF: {
+                unit: "mm",
+                format: "a4",
+                orientation: "portrait"
+            }
+        });
+    }, 1000);
 }
+
 
 function printResume() {
     window.print();
@@ -12,37 +29,10 @@ function printResume() {
 
 function generateResume() {
 
-    let certification =
-  document.getElementById("certification").value;
-
-  let languages =
-document.getElementById("languages").value;
-
-let summary =
-document.getElementById("summary").value;
-
-
-    let resume = document.querySelector(".resume");
-
-   let template = document.getElementById("template").value;
-
-resume.classList.remove(
-    "simple",
-    "professional",
-    "modern"
-);
-
-resume.classList.add(template);
-
-let theme = document.getElementById("theme").value;
-
-resume.classList.remove(
-    "blue",
-    "green",
-    "red"
-);
-
-resume.classList.add(theme);
+    // ---------------- INPUT VALUES ----------------
+    let certification = document.getElementById("certification").value;
+    let languages = document.getElementById("languages").value;
+    let summary = document.getElementById("summary").value;
 
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
@@ -55,37 +45,25 @@ resume.classList.add(theme);
     let github = document.getElementById("github").value;
     let photo = document.getElementById("photo").files[0];
 
-    if (name === "") {
-        alert("Please enter your name");
+    // ---------------- VALIDATION ----------------
+    if (!name || !email || !phone || !education || !skills || !project) {
+        alert("Please fill required fields");
         return;
     }
 
-    if (email === "") {
-        alert("Please enter your email");
-        return;
-    }
+    // ---------------- TEMPLATE & THEME ----------------
+    let resume = document.querySelector(".resume");
 
-    if (phone === "") {
-        alert("Please enter your phone number");
-        return;
-    }
+    let template = document.getElementById("template").value;
+    let theme = document.getElementById("theme").value;
 
-    if (education === "") {
-        alert("Please enter your education");
-        return;
-    }
+    resume.classList.remove("simple", "professional", "modern");
+    resume.classList.add(template);
 
-    if (skills === "") {
-        alert("Please enter your skills");
-        return;
-    }
+    resume.classList.remove("blue", "green", "red");
+    resume.classList.add(theme);
 
-    if (project === "") {
-        alert("Please enter your project");
-        return;
-    }
-
-    // Local Storage
+    // ---------------- LOCAL STORAGE ----------------
     localStorage.setItem("name", name);
     localStorage.setItem("email", email);
     localStorage.setItem("phone", phone);
@@ -98,124 +76,89 @@ resume.classList.add(theme);
     localStorage.setItem("summary", summary);
     localStorage.setItem("linkedin", linkedin);
     localStorage.setItem("github", github);
-   
 
-    if (photo) {
-        document.getElementById("showPhoto").src =
-            URL.createObjectURL(photo);
-    }
+    // ---------------- PHOTO ----------------
+   // ---------------- PHOTO ----------------
+if (photo) {
+    const reader = new FileReader();
 
-    // ATS Score
-    let score = 0;
+    reader.onload = function (e) {
+        document.getElementById("showPhoto").src = e.target.result;
+    };
 
-    if (name) score++;
-    if (email) score++;
-    if (education) score++;
-    if (skills) score++;
-    if (project) score++;
-    if (experience) score++;
-    if (certification) score++;
+    reader.readAsDataURL(photo);
+} 
+    // ---------------- ATS SCORE ----------------
+let score = 0;
+if (name) score++;
+if (email) score++;
+if (education) score++;
+if (skills) score++;
+if (project) score++;
+if (experience) score++;
+if (certification) score++;
 
-    score = Math.round((score / 7) * 100);
+score = Math.round((score / 7) * 100);
 
-    document.getElementById("atsScore").innerHTML =
-        "ATS Score: " + score + "/100";
+document.getElementById("atsScore").innerHTML =
+    "ATS Score: " + score + "/100";
+    // ---------------- COMPLETION ----------------
+    let completedFields = 0;
 
- let completedFields = 0;
+    if (name) completedFields++;
+    if (email) completedFields++;
+    if (phone) completedFields++;
+    if (education) completedFields++;
+    if (skills) completedFields++;
+    if (project) completedFields++;
+    if (experience) completedFields++;
+    if (linkedin) completedFields++;
+    if (github) completedFields++;
+    if (certification) completedFields++;
+    if (languages) completedFields++;
+    if (summary) completedFields++;
 
-if(name) completedFields++;
-if(email) completedFields++;
-if(phone) completedFields++;
-if(education) completedFields++;
-if(skills) completedFields++;
-if(project) completedFields++;
-if(experience) completedFields++;
-if(linkedin) completedFields++;
-if(github) completedFields++;
-if(certification) completedFields++;
-if(languages) completedFields++;
-if(summary) completedFields++;
+    let completion = Math.round((completedFields / 12) * 100);
 
-let completion =
-Math.round((completedFields / 12) * 100);
+    document.getElementById("completion").innerHTML =
+        "Resume Completion: " + completion + "%";
 
-document.getElementById("completion").innerHTML =
-    "Resume Completion: " + completion + "%";
-
+    // ---------------- STRENGTH ----------------
     let strength = "";
+    if (score < 60) strength = "Weak";
+    else if (score < 100) strength = "Good";
+    else strength = "Excellent";
 
+    document.getElementById("strength").innerHTML =
+        "Resume Strength: " + strength;
 
-if(score < 60){
-    strength = "Weak";
-}
-else if(score < 100){
-    strength = "Good";
-}
-else{
-    strength = "Excellent";
-}
+    // ---------------- PREVIEW ----------------
+    document.getElementById("showName").innerHTML = "Name: " + name;
+    document.getElementById("showEmail").innerHTML = "Email: " + email;
+    document.getElementById("showPhone").innerHTML = "Phone: " + phone;
+    document.getElementById("showEducation").innerHTML = "Education: " + education;
+    document.getElementById("showSkills").innerHTML = "Skills: " + skills;
+    document.getElementById("showProject").innerHTML = "Project: " + project;
+    document.getElementById("showExperience").innerHTML = "Experience: " + experience;
+    document.getElementById("showLinkedin").innerHTML = "LinkedIn: " + linkedin;
+    document.getElementById("showGitHub").innerHTML = "GitHub: " + github;
 
-document.getElementById("showCertification").innerHTML =
+    document.getElementById("progressBar").style.width = completion + "%";
+
+    document.getElementById("showCertification").innerHTML =
     "Certification: " + certification;
 
-    document.getElementById("showLanguages").innerHTML =
+   document.getElementById("showLanguages").innerHTML =
     "Languages: " + languages;
 
-    document.getElementById("showSummary").innerHTML =
+   document.getElementById("showSummary").innerHTML =
     "Summary: " + summary;
 
-document.getElementById("strength").innerHTML =
-    "Resume Strength: " + strength;
-
-let skillArray = skills.split(",");
-
-document.getElementById("skillCount").innerHTML =
-    "Total Skills: " + skillArray.length;
-
-document.getElementById("atsSuggestion").innerHTML =
-    "Suggestion: Add more skills and projects.";
-    // Preview
-    document.getElementById("showName").innerHTML =
-        "Name: " + name;
-
-    document.getElementById("showEmail").innerHTML =
-        "Email: " + email;
-
-    document.getElementById("showPhone").innerHTML =
-        "Phone: " + phone;
-
-    document.getElementById("showEducation").innerHTML =
-        "Education: " + education;
-
-    document.getElementById("showSkills").innerHTML =
-        "Skills: " + skills;
-
-    document.getElementById("showProject").innerHTML =
-        "Project: " + project;
-
-    document.getElementById("showExperience").innerHTML =
-        "Experience: " + experience;
-
-    document.getElementById("showLinkedin").innerHTML =
-        "LinkedIn: " + linkedin;
-
-    document.getElementById("showGitHub").innerHTML =
-        "GitHub: " + github;
-
-        document.getElementById("progressBar").style.width =
-        completion + "%";
-}
-
- // AI Summary
+    // ---------------- AI SUMMARY API ----------------
     fetch("http://localhost:3000/api/generate-summary", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name,
-            skills
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, skills })
     })
     .then(res => res.json())
     .then(data => {
@@ -224,16 +167,11 @@ document.getElementById("atsSuggestion").innerHTML =
     })
     .catch(err => console.log(err));
 
-    // ATS Backend
+    // ---------------- ATS API ----------------
     fetch("http://localhost:3000/api/analyze", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            skills,
-            project
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ skills, project })
     })
     .then(res => res.json())
     .then(data => {
@@ -246,97 +184,26 @@ document.getElementById("atsSuggestion").innerHTML =
     .catch(err => console.log(err));
 }
 
-// =======================
-// CLEAR FORM
-// =======================
-
 function clearForm() {
-
-    document.getElementById("name").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("phone").value = "";
-    document.getElementById("education").value = "";
-    document.getElementById("skills").value = "";
-    document.getElementById("project").value = "";
-    document.getElementById("photo").value = "";
-    document.getElementById("github").value = "";
-    document.getElementById("linkedin").value = "";
-    document.getElementById("experience").value = "";
-    document.getElementById("certification").value = "";
-    document.getElementById("languages").value = "";
-    document.getElementById("summary").value = "";
-
-    
-
-    
-
-
-   
-
-
-    document.getElementById("showName").innerHTML = "";
-    document.getElementById("showEmail").innerHTML = "";
-    document.getElementById("showPhone").innerHTML = "";
-    document.getElementById("showEducation").innerHTML = "";
-    document.getElementById("showSkills").innerHTML = "";
-    document.getElementById("showProject").innerHTML = "";
-    document.getElementById("atsScore").innerHTML = "";
-    document.getElementById("atsSuggestion").innerHTML = "";
-    document.getElementById("skillCount").innerHTML = "";
-    document.getElementById("showLinkedin").innerHTML = "";
-    document.getElementById("showGitHub").innerHTML = "";
-    document.getElementById("showExperience").innerHTML = "";
-    document.getElementById("strength").innerHTML = "";
-    document.getElementById("showCertification").innerHTML = "";
-    document.getElementById("showLanguages").innerHTML = "";
-    document.getElementById("showSummary").innerHTML = "";
-
     localStorage.clear();
-
-    
-   
-
+    location.reload();
 }
 
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
-
 }
-window.onload = function() {
 
-    document.getElementById("name").value =
-        localStorage.getItem("name") || "";
-
-    document.getElementById("email").value =
-        localStorage.getItem("email") || "";
-
-    document.getElementById("phone").value =
-        localStorage.getItem("phone") || "";
-
-    document.getElementById("education").value =
-        localStorage.getItem("education") || "";
-
-    document.getElementById("skills").value =
-        localStorage.getItem("skills") || "";
-
-    document.getElementById("project").value =
-        localStorage.getItem("project") || "";
-
-    document.getElementById("experience").value =
-        localStorage.getItem("experience") || "";
-
-    document.getElementById("linkedin").value =
-        localStorage.getItem("linkedin") || "";
-
-    document.getElementById("github").value =
-        localStorage.getItem("github") || "";
-
-    document.getElementById("certification").value =
-    localStorage.getItem("certification") || "";
-
-    document.getElementById("languages").value =
-        localStorage.getItem("languages") || "";
-
-    document.getElementById("summary").value =
-        localStorage.getItem("summary") || "";
-}
+window.onload = function () {
+    document.getElementById("name").value = localStorage.getItem("name") || "";
+    document.getElementById("email").value = localStorage.getItem("email") || "";
+    document.getElementById("phone").value = localStorage.getItem("phone") || "";
+    document.getElementById("education").value = localStorage.getItem("education") || "";
+    document.getElementById("skills").value = localStorage.getItem("skills") || "";
+    document.getElementById("project").value = localStorage.getItem("project") || "";
+    document.getElementById("experience").value = localStorage.getItem("experience") || "";
+    document.getElementById("linkedin").value = localStorage.getItem("linkedin") || "";
+    document.getElementById("github").value = localStorage.getItem("github") || "";
+    document.getElementById("certification").value = localStorage.getItem("certification") || "";
+    document.getElementById("languages").value = localStorage.getItem("languages") || "";
+    document.getElementById("summary").value = localStorage.getItem("summary") || "";
+};
