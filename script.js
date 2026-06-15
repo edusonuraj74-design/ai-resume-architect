@@ -1,25 +1,22 @@
 function downloadResume() {
     const element = document.querySelector(".resume");
 
-    console.log("Resume Content:");
-    console.log(element.innerHTML);
+    const opt = {
+        margin: 0.5,
+        filename: "Resume.pdf",
+        image: { type: "jpeg", quality: 1 },
+        html2canvas: {
+            scale: 2,
+            useCORS: true
+        },
+        jsPDF: {
+            unit: "in",
+            format: "a4",
+            orientation: "portrait"
+        }
+    };
 
-   setTimeout(() => {
-        html2pdf(element, {
-            margin: 10,
-            filename: "Resume.pdf",
-            image: { type: "jpeg", quality: 1 },
-            html2canvas: {
-                scale: 2,
-                useCORS: true
-            },
-            jsPDF: {
-                unit: "mm",
-                format: "a4",
-                orientation: "portrait"
-            }
-        });
-    }, 1000);
+    html2pdf().set(opt).from(element).save();
 }
 
 
