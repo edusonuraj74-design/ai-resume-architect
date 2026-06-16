@@ -1,196 +1,166 @@
+/* =========================
+   BASE STYLE
+========================= */
+
 body {
-    background-color: lightgray;
-    font-family: Arial, sans-serif;
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
 }
 
-.card {
-    width: 500px;
-    background-color: white;
-    padding: 20px;
-    margin: 50px auto;
-    border-radius: 10px;
+/* =========================
+   LOGIN SCREEN
+========================= */
+
+.login-box {
+    width: 380px;
+    margin: 120px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-h1 {
-    color: blue;
+.login-box h2 {
+    color: #1e3a8a;
 }
 
-h2 {
-    color: darkgreen;
-}
-
-input,
-select {
+.login-box input {
     width: 90%;
-    padding: 10px;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
 
-button {
-    padding: 10px 20px;
-    margin: 5px;
+.login-box button {
+    width: 95%;
+    padding: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }
+
+.login-box button:hover {
+    background: #1d4ed8;
+}
+
+/* =========================
+   DASHBOARD LAYOUT (CANVA STYLE)
+========================= */
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    width: 40%;
+    background: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    width: 60%;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+/* =========================
+   RESUME CARD
+========================= */
 
 .resume {
-    margin-top: 20px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid black;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-.resume h2 {
-    text-align: center;
-}
+/* =========================
+   INPUT FIELDS
+========================= */
 
-/* Progress Bar */
-
-.progress {
-    width: 100%;
-    height: 25px;
-    background-color: lightgray;
-    border-radius: 10px;
-}
-
-#progressBar {
-    width: 0%;
-    height: 25px;
-    background-color: green;
-    border-radius: 10px;
-    text-align: center;
-    color: white;
-    line-height: 25px;
-}
-
-/* Templates */
-
-.simple {
-    border-left: 5px solid black;
-}
-
-.professional {
-    border-left: 8px solid blue;
-}
-
-.modern {
-    border-left: 8px solid green;
-    background-color: #f5f5f5;
-}
-
-/* Theme Colors */
-
-.blue {
-    background-color: #dbeafe;
-    border: 4px solid blue;
-}
-
-.green {
-    background-color: #dcfce7;
-    border: 4px solid green;
-}
-
-.red {
-    background-color: #fee2e2;
-    border: 4px solid red;
-}
-
-/* Dark Mode */
-
-.dark-mode {
-    background-color: black;
-    color: white;
-}
-
-.dark-mode .card {
-    background-color: #222;
-    color: white;
-}
-
-.dark-mode input,
-.dark-mode select {
-    background-color: #333;
-    color: white;
-}
-
-.dark-mode .resume {
-    background-color: #333;
-    color: white;
-}
-
-/* Mobile Responsive */
-
-@media (max-width: 600px) {
-
-    .card {
-        width: 90%;
-        margin: 20px auto;
-    }
-
-    input,
-    select,
-    button {
-        width: 100%;
-        margin-top: 5px;
-    }
-
-    img {
-        max-width: 100%;
-    }
-}
-
-/* Print */
-
-@media print {
-
-    body * {
-        visibility: hidden;
-    }
-
-    .resume,
-    .resume * {
-        visibility: visible;
-    }
-
-    .resume {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        border: none;
-    }
-    textarea {
-    width: 90%;
+input, textarea, select {
+    width: 95%;
     padding: 10px;
+    margin: 8px 0 12px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+    background: #4f46e5;
+    color: white;
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #4338ca;
+    transform: scale(1.05);
+}
+
+/* =========================
+   SKILL TAGS
+========================= */
+
 .skill-tag {
     display: inline-block;
     padding: 5px 10px;
     margin: 3px;
     border-radius: 15px;
-    background-color: #007bff;
+    background: #2563eb;
     color: white;
 }
-.login-box {
-    width: 350px;
-    margin: 100px auto;
-    padding: 30px;
-    background: white;
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progress {
+    width: 100%;
+    height: 20px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: #22c55e;
+    color: white;
     text-align: center;
-    border-radius: 12px;
-    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+    line-height: 20px;
 }
 
-.login-box input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-}
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
 
-.login-box button {
-    width: 95%;
-    padding: 10px;
-    background: blue;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+        height: auto;
+    }
 }
