@@ -1,3 +1,15 @@
+<div id="loginPage" class="login-box">
+
+    <h2>AI Resume Architect</h2>
+
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p id="loginError"></p>
+</div>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +19,7 @@
 
 <body>
 
-<div class="card">
+<div class="card" id="app" style="display:none;">
 
     <h1>Resume Builder</h1>
 
@@ -142,6 +154,9 @@
         <p id="showSummary"></p>
         <p id="showLinkedin"></p>
         <p id="showGitHub"></p>
+
+        <p><strong>Skills:</strong></p>
+        <div id="showSkills"></div>
     
 
          <h3>ATS Score</h3>

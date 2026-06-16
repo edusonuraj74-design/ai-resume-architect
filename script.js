@@ -137,7 +137,13 @@ document.getElementById("atsScore").innerHTML =
     document.getElementById("showEmail").innerHTML = "Email: " + email;
     document.getElementById("showPhone").innerHTML = "Phone: " + phone;
     document.getElementById("showEducation").innerHTML = "Education: " + education;
-    document.getElementById("showSkills").innerHTML = "Skills: " + skills;
+    let skillArray = skills.split(",");
+
+    document.getElementById("showSkills").innerHTML =
+    "<strong>Skills:</strong><br>" +
+    skillArray.map(skill =>
+        `<span class="skill-tag">${skill.trim()}</span>`
+    ).join(" ");
     document.getElementById("showProject").innerHTML = "Project: " + project;
     document.getElementById("showExperience").innerHTML = "Experience: " + experience;
     document.getElementById("showLinkedin").innerHTML = "LinkedIn: " + linkedin;
@@ -208,6 +214,12 @@ window.onload = function () {
     document.getElementById("summary").value = localStorage.getItem("summary") || "";
 };
 
+document.querySelectorAll("input, textarea, select").forEach(field => {
+    field.addEventListener("input", () => {
+        generateResume();
+    });
+});
+
 function analyzeJobMatch() {
 
     let skills = document.getElementById("skills").value.toLowerCase();
@@ -256,5 +268,20 @@ function analyzeJobMatch() {
 
     document.getElementById("missingKeywords").innerHTML =
         "Missing Keywords: " + missing.join(", ");
+}
+
+function login() {
+    let user = document.getElementById("loginUser").value;
+    let pass = document.getElementById("loginPass").value;
+
+    if (user === "admin" && pass === "1234") {
+
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("app").style.display = "block";
+
+    } else {
+        document.getElementById("loginError").innerText =
+            "Wrong username or password";
+    }
 }
 
