@@ -1,22 +1,25 @@
 function downloadResume() {
     const element = document.querySelector(".resume");
 
-    const opt = {
-        margin: 0.5,
-        filename: "Resume.pdf",
-        image: { type: "jpeg", quality: 1 },
-        html2canvas: {
-            scale: 2,
-            useCORS: true
-        },
-        jsPDF: {
-            unit: "in",
-            format: "a4",
-            orientation: "portrait"
-        }
-    };
+    console.log("Resume Text:", element.innerText);
+    console.log("Resume HTML:", element.innerHTML);
 
-    html2pdf().set(opt).from(element).save();
+    html2pdf()
+        .set({
+            margin: 10,
+            filename: "Resume.pdf",
+            html2canvas: {
+                scale: 2,
+                logging: true
+            },
+            jsPDF: {
+                unit: "mm",
+                format: "a4",
+                orientation: "portrait"
+            }
+        })
+        .from(element)
+        .save();
 }
 
 
@@ -165,18 +168,18 @@ document.getElementById("atsScore").innerHTML =
     .catch(err => console.log(err));
 
     // ---------------- ATS API ----------------
-    fetch("http://localhost:3000/api/analyze", {
-        method: "POST",
+   fetch("http://localhost:3000/api/analyze", {
+       method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ skills, project })
-    })
+   })
     .then(res => res.json())
     .then(data => {
         document.getElementById("atsScore").innerText =
             "ATS Score: " + data.atsScore + "/100";
 
-        document.getElementById("atsSuggestion").innerText =
-            data.suggestion;
+       document.getElementById("atsSuggestion").innerText =
+           data.suggestion;
     })
     .catch(err => console.log(err));
 }
@@ -204,3 +207,54 @@ window.onload = function () {
     document.getElementById("languages").value = localStorage.getItem("languages") || "";
     document.getElementById("summary").value = localStorage.getItem("summary") || "";
 };
+
+function analyzeJobMatch() {
+
+    let skills = document.getElementById("skills").value.toLowerCase();
+    let project = document.getElementById("project").value.toLowerCase();
+
+    let jobDescription =
+        document.getElementById("jobDescription").value.toLowerCase();
+
+    let resumeText = skills + " " + project;
+
+    let keywords = [
+        "javascript",
+        "react",
+        "node",
+        "express",
+        "mongodb",
+        "java",
+        "python",
+        "sql",
+        "html",
+        "css"
+    ];
+
+    let matched = 0;
+    let missing = [];
+
+    keywords.forEach(keyword => {
+
+        if (
+            jobDescription.includes(keyword) &&
+            resumeText.includes(keyword)
+        ) {
+            matched++;
+        }
+        else if (jobDescription.includes(keyword)) {
+            missing.push(keyword);
+        }
+    });
+
+    let score = Math.round(
+        (matched / keywords.length) * 100
+    );
+
+    document.getElementById("matchScore").innerHTML =
+        "Job Match Score: " + score + "%";
+
+    document.getElementById("missingKeywords").innerHTML =
+        "Missing Keywords: " + missing.join(", ");
+}
+

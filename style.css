@@ -157,4 +157,8 @@ button {
         width: 100%;
         border: none;
     }
+    textarea {
+    width: 90%;
+    padding: 10px;
+}
 }
