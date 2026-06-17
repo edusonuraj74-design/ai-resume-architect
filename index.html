@@ -21,7 +21,22 @@
 </div>
 
 
-<div class="card" id="app" style="display:none;">
+<div id="app" style="display:none;">
+
+    <div class="sidebar">
+        <h2>AI Resume</h2>
+
+        <button>🏠 Dashboard</button>
+        <button>📄 Resume</button>
+        <button>📊 Analytics</button>
+        <button>⚙ Settings</button>
+
+        <button onclick="logout()">🚪 Logout</button>
+    </div>
+
+    <div class="main-content">
+    <div class="container">
+    <div class="left-panel">
     <div class="app-header">
     <h1>AI Resume Architect</h1>
     <button onclick="logout()">Logout</button>
@@ -142,9 +157,13 @@
 <p id="matchScore"></p>
 <p id="missingKeywords"></p>
 
+</div> <!-- left-panel -->
+<div class="right-panel"></div>
+
     <div class="resume">
 
         <h2>Resume Preview</h2>
+
 
         <img id="showPhoto" width="120" alt="Profile Photo">
 
@@ -152,7 +171,6 @@
         <p id="showEmail"></p>
         <p id="showPhone"></p>
         <p id="showEducation"></p>
-        <p id="showSkills"></p>
         <p id="showProject"></p>
         <p id="showExperience"></p>
         <p id="showCertification"></p>
@@ -175,13 +193,18 @@
 
         <div class="progress">
     <div id="progressBar"></div>
+
+    </div> <!-- resume -->
+</div> <!-- right-panel -->
 </div>
-    </div>
+ </div>
+ </div>
+ </div>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="script.js"></script>
 
-</body>
+<body>
 </html>
