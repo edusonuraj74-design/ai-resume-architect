@@ -284,4 +284,9 @@ function login() {
             "Wrong username or password";
     }
 }
+    function logout() {
+    document.getElementById("app").style.display = "none";
+    document.getElementById("loginPage").style.display = "block";
+}
+
 
