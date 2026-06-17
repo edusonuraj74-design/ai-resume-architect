@@ -1,17 +1,18 @@
 function downloadResume() {
     const element = document.querySelector(".resume");
 
+    if (!element) {
+        alert("Resume not found!");
+        return;
+    }
+
     console.log("Resume Text:", element.innerText);
-    console.log("Resume HTML:", element.innerHTML);
 
     html2pdf()
         .set({
             margin: 10,
             filename: "Resume.pdf",
-            html2canvas: {
-                scale: 2,
-                logging: true
-            },
+            html2canvas: { scale: 2 },
             jsPDF: {
                 unit: "mm",
                 format: "a4",
@@ -22,7 +23,6 @@ function downloadResume() {
         .save();
 }
 
-
 function printResume() {
     window.print();
 }
@@ -30,10 +30,6 @@ function printResume() {
 function generateResume() {
 
     // ---------------- INPUT VALUES ----------------
-    let certification = document.getElementById("certification").value;
-    let languages = document.getElementById("languages").value;
-    let summary = document.getElementById("summary").value;
-
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
     let phone = document.getElementById("phone").value;
@@ -41,19 +37,28 @@ function generateResume() {
     let skills = document.getElementById("skills").value;
     let project = document.getElementById("project").value;
     let experience = document.getElementById("experience").value;
+    let certification = document.getElementById("certification").value;
+    let languages = document.getElementById("languages").value;
+    let summary = document.getElementById("summary").value;
     let linkedin = document.getElementById("linkedin").value;
     let github = document.getElementById("github").value;
     let photo = document.getElementById("photo").files[0];
 
     // ---------------- VALIDATION ----------------
     if (!name || !email || !phone || !education || !skills || !project) {
-        alert("Please fill required fields");
+        alert("Please fill all required fields!");
         return;
     }
 
-    // ---------------- TEMPLATE & THEME ----------------
+    // ---------------- RESUME ELEMENT ----------------
     let resume = document.querySelector(".resume");
 
+    if (!resume) {
+        alert("Resume container missing!");
+        return;
+    }
+
+    // ---------------- TEMPLATE + THEME ----------------
     let template = document.getElementById("template").value;
     let theme = document.getElementById("theme").value;
 
@@ -64,101 +69,81 @@ function generateResume() {
     resume.classList.add(theme);
 
     // ---------------- LOCAL STORAGE ----------------
-    localStorage.setItem("name", name);
-    localStorage.setItem("email", email);
-    localStorage.setItem("phone", phone);
-    localStorage.setItem("education", education);
-    localStorage.setItem("skills", skills);
-    localStorage.setItem("project", project);
-    localStorage.setItem("experience", experience);
-    localStorage.setItem("certification", certification);
-    localStorage.setItem("languages", languages);
-    localStorage.setItem("summary", summary);
-    localStorage.setItem("linkedin", linkedin);
-    localStorage.setItem("github", github);
-
-    // ---------------- PHOTO ----------------
-   // ---------------- PHOTO ----------------
-if (photo) {
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-        document.getElementById("showPhoto").src = e.target.result;
+    let fields = {
+        name, email, phone, education, skills,
+        project, experience, certification,
+        languages, summary, linkedin, github
     };
 
-    reader.readAsDataURL(photo);
-} 
+    for (let key in fields) {
+        localStorage.setItem(key, fields[key]);
+    }
+
+    // ---------------- PHOTO ----------------
+    if (photo) {
+        let reader = new FileReader();
+
+        reader.onload = function (e) {
+            document.getElementById("showPhoto").src = e.target.result;
+        };
+
+        reader.readAsDataURL(photo);
+    }
+
     // ---------------- ATS SCORE ----------------
-let score = 0;
-if (name) score++;
-if (email) score++;
-if (education) score++;
-if (skills) score++;
-if (project) score++;
-if (experience) score++;
-if (certification) score++;
+    let score = 0;
+    let total = 7;
 
-score = Math.round((score / 7) * 100);
+    if (name) score++;
+    if (email) score++;
+    if (education) score++;
+    if (skills) score++;
+    if (project) score++;
+    if (experience) score++;
+    if (certification) score++;
 
-document.getElementById("atsScore").innerHTML =
-    "ATS Score: " + score + "/100";
+    let atsScore = Math.round((score / total) * 100);
+
+    document.getElementById("atsScore").innerText =
+        "ATS Score: " + atsScore + "/100";
+
     // ---------------- COMPLETION ----------------
-    let completedFields = 0;
+    let completed = Object.values(fields).filter(v => v).length;
+    let completion = Math.round((completed / Object.keys(fields).length) * 100);
 
-    if (name) completedFields++;
-    if (email) completedFields++;
-    if (phone) completedFields++;
-    if (education) completedFields++;
-    if (skills) completedFields++;
-    if (project) completedFields++;
-    if (experience) completedFields++;
-    if (linkedin) completedFields++;
-    if (github) completedFields++;
-    if (certification) completedFields++;
-    if (languages) completedFields++;
-    if (summary) completedFields++;
-
-    let completion = Math.round((completedFields / 12) * 100);
-
-    document.getElementById("completion").innerHTML =
+    document.getElementById("completion").innerText =
         "Resume Completion: " + completion + "%";
-
-    // ---------------- STRENGTH ----------------
-    let strength = "";
-    if (score < 60) strength = "Weak";
-    else if (score < 100) strength = "Good";
-    else strength = "Excellent";
-
-    document.getElementById("strength").innerHTML =
-        "Resume Strength: " + strength;
-
-    // ---------------- PREVIEW ----------------
-    document.getElementById("showName").innerHTML = "Name: " + name;
-    document.getElementById("showEmail").innerHTML = "Email: " + email;
-    document.getElementById("showPhone").innerHTML = "Phone: " + phone;
-    document.getElementById("showEducation").innerHTML = "Education: " + education;
-    let skillArray = skills.split(",");
-
-    document.getElementById("showSkills").innerHTML =
-    "<strong>Skills:</strong><br>" +
-    skillArray.map(skill =>
-        `<span class="skill-tag">${skill.trim()}</span>`
-    ).join(" ");
-    document.getElementById("showProject").innerHTML = "Project: " + project;
-    document.getElementById("showExperience").innerHTML = "Experience: " + experience;
-    document.getElementById("showLinkedin").innerHTML = "LinkedIn: " + linkedin;
-    document.getElementById("showGitHub").innerHTML = "GitHub: " + github;
 
     document.getElementById("progressBar").style.width = completion + "%";
 
-    document.getElementById("showCertification").innerHTML =
-    "Certification: " + certification;
+    // ---------------- STRENGTH ----------------
+    let strength = "";
+    if (atsScore < 50) strength = "Weak";
+    else if (atsScore < 80) strength = "Good";
+    else strength = "Excellent";
 
-   document.getElementById("showLanguages").innerHTML =
-    "Languages: " + languages;
+    document.getElementById("strength").innerText =
+        "Resume Strength: " + strength;
 
-   document.getElementById("showSummary").innerHTML =
-    "Summary: " + summary;
+    // ---------------- PREVIEW ----------------
+    document.getElementById("showName").innerText = name;
+    document.getElementById("showEmail").innerText = email;
+    document.getElementById("showPhone").innerText = phone;
+    document.getElementById("showEducation").innerText = education;
+    document.getElementById("showProject").innerText = project;
+    document.getElementById("showExperience").innerText = experience;
+    document.getElementById("showLinkedin").innerText = linkedin;
+    document.getElementById("showGitHub").innerText = github;
+    document.getElementById("showCertification").innerText = certification;
+    document.getElementById("showLanguages").innerText = languages;
+    document.getElementById("showSummary").innerText = summary;
+
+    // ---------------- SKILLS TAGS ----------------
+    let skillArray = skills.split(",");
+    document.getElementById("showSkills").innerHTML =
+        skillArray.map(skill =>
+            `<span class="skill-tag">${skill.trim()}</span>`
+        ).join(" ");
 
     // ---------------- AI SUMMARY API ----------------
     fetch("http://localhost:3000/api/generate-summary", {
@@ -168,26 +153,32 @@ document.getElementById("atsScore").innerHTML =
     })
     .then(res => res.json())
     .then(data => {
-        document.getElementById("showSummary").innerText =
-            "AI Summary: " + data.summary;
+        if (data.summary) {
+            document.getElementById("showSummary").innerText =
+                "AI Summary: " + data.summary;
+        }
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log("AI error:", err));
 
     // ---------------- ATS API ----------------
-   fetch("http://localhost:3000/api/analyze", {
-       method: "POST",
+    fetch("http://localhost:3000/api/analyze", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ skills, project })
-   })
+    })
     .then(res => res.json())
     .then(data => {
-        document.getElementById("atsScore").innerText =
-            "ATS Score: " + data.atsScore + "/100";
+        if (data.atsScore) {
+            document.getElementById("atsScore").innerText =
+                "ATS Score: " + data.atsScore + "/100";
+        }
 
-       document.getElementById("atsSuggestion").innerText =
-           data.suggestion;
+        if (data.suggestion) {
+            document.getElementById("atsSuggestion").innerText =
+                data.suggestion;
+        }
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log("ATS error:", err));
 }
 
 function clearForm() {
@@ -199,94 +190,75 @@ function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
 }
 
+// ---------------- LOGIN ----------------
+function login() {
+    let user = document.getElementById("loginUser").value;
+    let pass = document.getElementById("loginPass").value;
+
+    if (user === "admin" && pass === "1234") {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("app").style.display = "block";
+    } else {
+        document.getElementById("loginError").innerText =
+            "Wrong username or password";
+    }
+}
+
+function logout() {
+    document.getElementById("app").style.display = "none";
+    document.getElementById("loginPage").style.display = "block";
+}
+
+// ---------------- LOAD SAVED DATA ----------------
 window.onload = function () {
-    document.getElementById("name").value = localStorage.getItem("name") || "";
-    document.getElementById("email").value = localStorage.getItem("email") || "";
-    document.getElementById("phone").value = localStorage.getItem("phone") || "";
-    document.getElementById("education").value = localStorage.getItem("education") || "";
-    document.getElementById("skills").value = localStorage.getItem("skills") || "";
-    document.getElementById("project").value = localStorage.getItem("project") || "";
-    document.getElementById("experience").value = localStorage.getItem("experience") || "";
-    document.getElementById("linkedin").value = localStorage.getItem("linkedin") || "";
-    document.getElementById("github").value = localStorage.getItem("github") || "";
-    document.getElementById("certification").value = localStorage.getItem("certification") || "";
-    document.getElementById("languages").value = localStorage.getItem("languages") || "";
-    document.getElementById("summary").value = localStorage.getItem("summary") || "";
-};
+    let keys = [
+        "name","email","phone","education","skills",
+        "project","experience","linkedin","github",
+        "certification","languages","summary"
+    ];
 
-document.querySelectorAll("input, textarea, select").forEach(field => {
-    field.addEventListener("input", () => {
-        generateResume();
+    keys.forEach(key => {
+        let el = document.getElementById(key);
+        if (el) el.value = localStorage.getItem(key) || "";
     });
-});
-
+};
 function analyzeJobMatch() {
 
     let skills = document.getElementById("skills").value.toLowerCase();
     let project = document.getElementById("project").value.toLowerCase();
+    let jobDescription = document.getElementById("jobDescription").value.toLowerCase();
 
-    let jobDescription =
-        document.getElementById("jobDescription").value.toLowerCase();
+    if (!jobDescription) {
+        alert("Please paste job description first");
+        return;
+    }
 
     let resumeText = skills + " " + project;
 
     let keywords = [
-        "javascript",
-        "react",
-        "node",
-        "express",
-        "mongodb",
-        "java",
-        "python",
-        "sql",
-        "html",
-        "css"
+        "javascript","react","node","express","mongodb",
+        "java","python","sql","html","css"
     ];
 
     let matched = 0;
     let missing = [];
 
     keywords.forEach(keyword => {
-
-        if (
-            jobDescription.includes(keyword) &&
-            resumeText.includes(keyword)
-        ) {
+        if (jobDescription.includes(keyword) && resumeText.includes(keyword)) {
             matched++;
-        }
+        } 
         else if (jobDescription.includes(keyword)) {
             missing.push(keyword);
         }
     });
 
-    let score = Math.round(
-        (matched / keywords.length) * 100
-    );
+    let score = Math.round((matched / keywords.length) * 100);
 
-    document.getElementById("matchScore").innerHTML =
+    document.getElementById("matchScore").innerText =
         "Job Match Score: " + score + "%";
 
-    document.getElementById("missingKeywords").innerHTML =
+    document.getElementById("missingKeywords").innerText =
         "Missing Keywords: " + missing.join(", ");
-}
-
-function login() {
-    let user = document.getElementById("loginUser").value;
-    let pass = document.getElementById("loginPass").value;
-
-    if (user === "admin" && pass === "1234") {
-
-        document.getElementById("loginPage").style.display = "none";
-        document.getElementById("app").style.display = "block";
-
-    } else {
-        document.getElementById("loginError").innerText =
-            "Wrong username or password";
-    }
-}
-    function logout() {
-    document.getElementById("app").style.display = "none";
-    document.getElementById("loginPage").style.display = "block";
 }
 
 

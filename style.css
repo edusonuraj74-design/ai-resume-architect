@@ -1,16 +1,15 @@
-/* =========================
-   BASE STYLE
-========================= */
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
     background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #111;
 }
 
-/* =========================
-   LOGIN SCREEN
-========================= */
+/* ================= LOGIN ================= */
 
 .login-box {
     width: 380px;
@@ -27,7 +26,7 @@ body {
 }
 
 .login-box input {
-    width: 90%;
+    width: 100%;
     padding: 12px;
     margin: 10px 0;
     border-radius: 8px;
@@ -35,156 +34,25 @@ body {
 }
 
 .login-box button {
-    width: 95%;
-    padding: 12px;
-    background: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.login-box button:hover {
-    background: #1d4ed8;
-}
-
-/* =========================
-   DASHBOARD LAYOUT (CANVA STYLE)
-========================= */
-
-.container {
-    display: flex;
-    height: 100vh;
-}
-
-/* LEFT PANEL */
-.left-panel {
-    width: 40%;
-    background: white;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-/* RIGHT PANEL */
-.right-panel {
-    width: 60%;
-    padding: 30px;
-    overflow-y: auto;
-}
-
-/* =========================
-   RESUME CARD
-========================= */
-
-.resume {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-/* =========================
-   INPUT FIELDS
-========================= */
-
-input, textarea, select {
-    width: 95%;
-    padding: 10px;
-    margin: 8px 0 12px 0;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-button {
-    background: #4f46e5;
-    color: white;
-    padding: 10px 15px;
-    margin: 5px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: #4338ca;
-    transform: scale(1.05);
-}
-
-/* =========================
-   SKILL TAGS
-========================= */
-
-.skill-tag {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 3px;
-    border-radius: 15px;
-    background: #2563eb;
-    color: white;
-}
-
-/* =========================
-   PROGRESS BAR
-========================= */
-
-.progress {
     width: 100%;
-    height: 20px;
-    background: #e5e7eb;
-    border-radius: 10px;
-    overflow: hidden;
+    padding: 12px;
 }
 
-#progressBar {
-    height: 100%;
-    width: 0%;
-    background: #22c55e;
-    color: white;
-    text-align: center;
-    line-height: 20px;
-}
-
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
-
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .left-panel,
-    .right-panel {
-        width: 100%;
-        height: auto;
-    }
-    .app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.app-header h1 {
-    margin: 0;
-    color: #2563eb;
-}
-/* DASHBOARD */
+/* ================= APP LAYOUT ================= */
 
 #app {
     display: flex;
     min-height: 100vh;
 }
 
+/* SIDEBAR */
 .sidebar {
-    width: 250px;
-    background: #111827;
-    color: white;
+    width: 220px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #0f172a;
     padding: 20px;
 }
 
@@ -197,76 +65,175 @@ button:hover {
     width: 100%;
     margin-top: 10px;
     background: #1f2937;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .sidebar button:hover {
     background: #374151;
 }
 
+/* MAIN */
 .main-content {
-    flex: 1;
+    margin-left: 240px;
+    width: calc(100% - 240px);
     padding: 20px;
 }
 
-.card {
-    width: 90%;
+/* HEADER */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.app-header h1 {
+    color: white;
+}
+
+/* ================= TWO PANEL ================= */
+
+.container {
+    display: flex;
+    gap: 20px;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* RIGHT PANEL (IMPORTANT FIX) */
+.right-panel {
+    flex: 1;
+}
+
+/* ================= RESUME PREVIEW ================= */
+
+.resume {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    min-height: 1000px;
+}
+
+/* PHOTO FIX */
+#showPhoto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
     margin: auto;
-}
-.container{
-    display:flex;
-    gap:20px;
-    padding:20px;
+    border: 4px solid #2563eb;
 }
 
-.left-panel{
-    flex:1;
-    min-width:350px;
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+/* NAME STYLE */
+#showName {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 15px;
 }
 
-.right-panel{
-    flex:1.3;
-    min-width:500px;
+/* ================= INPUTS ================= */
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }
 
-.resume{
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+/* ================= BUTTONS ================= */
+
+button {
+    background: #2563eb;
+    color: white;
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-.sidebar{
-    width:220px;
-    height:100vh;
-    position:fixed;
-    left:0;
-    top:0;
-    background:#0f172a;
-    padding:20px;
+button:hover {
+    background: #1d4ed8;
 }
 
-.sidebar h2{
-    color:white;
+/* ================= SKILLS ================= */
+
+.skill-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 4px;
+    border-radius: 20px;
+    background: #2563eb;
+    color: white;
 }
 
-.sidebar button{
-    width:100%;
-    margin-top:10px;
+/* ================= PROGRESS BAR ================= */
+
+.progress {
+    width: 100%;
+    height: 20px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.main-content{
-    margin-left:250px;
-    padding:20px;
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background: #22c55e;
 }
 
-.app-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+/* ================= DARK MODE FIX ================= */
+
+.dark-mode {
+    background: #111827;
+    color: white;
 }
+
+.dark-mode .left-panel,
+.dark-mode .resume {
+    background: #1f2937;
+    color: white;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+    background: #374151;
+    color: white;
+    border: 1px solid #555;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .container {
+        flex-direction: column;
+    }
 }
