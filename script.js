@@ -1,32 +1,29 @@
+const API_BASE = "http://localhost:3000";
+
 // ===================== RESUME DOWNLOAD =====================
 function downloadResume() {
-    const element = document.querySelector(".resume");
+    const element = document.getElementById("resume");
 
-    if (!element) {
-        alert("Resume not found!");
-        return;
-    }
+    if (!element) return alert("Resume not found!");
 
-    setTimeout(() => {
-        html2pdf()
-            .set({
-                margin: 10,
-                filename: "Resume.pdf",
-                image: { type: "jpeg", quality: 1 },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    scrollY: 0
-                },
-                jsPDF: {
-                    unit: "mm",
-                    format: "a4",
-                    orientation: "portrait"
-                }
-            })
-            .from(element)
-            .save();
-    }, 300);
+    html2pdf()
+        .set({
+            margin: 10,
+            filename: "AI_Resume.pdf",
+            image: { type: "jpeg", quality: 1 },
+            html2canvas: {
+                scale: 2,
+                useCORS: true,
+                scrollY: 0
+            },
+            jsPDF: {
+                unit: "mm",
+                format: "a4",
+                orientation: "portrait"
+            }
+        })
+        .from(element)
+        .save();
 }
 
 // ===================== PRINT =====================
@@ -35,7 +32,7 @@ function printResume() {
 }
 
 // ===================== GENERATE RESUME =====================
-function generateResume() {
+async function generateResume() {
 
     const get = (id) => document.getElementById(id)?.value || "";
 
@@ -55,135 +52,121 @@ function generateResume() {
     let photo = document.getElementById("photo")?.files[0];
 
     // ---------------- VALIDATION ----------------
-    if (!name || !email || !phone || !education || !skills || !project) {
-        alert("Please fill all required fields!");
+    if (!name || !email || !phone) {
+        alert("Please fill required fields!");
         return;
     }
 
-    const resume = document.querySelector(".resume");
-    if (!resume) {
-        alert("Resume container missing!");
-        return;
-    }
+    const resume = document.getElementById("resume");
+    if (!resume) return alert("Resume container missing!");
 
-    // ---------------- TEMPLATE + THEME ----------------
-    let template = document.getElementById("template")?.value || "simple";
-    let theme = document.getElementById("theme")?.value || "blue";
+    // ---------------- TEMPLATE ----------------
+    let template = get("template") || "simple";
+    let theme = get("theme") || "blue";
 
-    resume.classList.remove("simple", "professional", "modern");
+    resume.classList.remove("simple", "professional", "modern", "creative");
     resume.classList.add(template);
 
     resume.classList.remove("blue", "green", "red");
     resume.classList.add(theme);
 
-    // ---------------- LOCAL STORAGE ----------------
+    // ---------------- SAVE LOCAL ----------------
     const fields = {
         name, email, phone, education, skills,
         project, experience, certification,
         languages, summary, linkedin, github
     };
 
-    Object.keys(fields).forEach(key => {
+    for (let key in fields) {
         localStorage.setItem(key, fields[key]);
-    });
+    }
 
     // ---------------- PHOTO ----------------
     if (photo) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            const img = document.getElementById("showPhoto");
-            if (img) img.src = e.target.result;
+            document.getElementById("showPhoto").src = e.target.result;
         };
         reader.readAsDataURL(photo);
     }
 
-    // ---------------- ATS SCORE ----------------
-    let score = 0;
-    const total = 7;
-
-    [name, email, education, skills, project, experience, certification]
-        .forEach(v => v && score++);
-
-    let atsScore = Math.round((score / total) * 100);
-
-    const setText = (id, val) => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = val || "";
-    };
-
-    setText("atsScore", `ATS Score: ${atsScore}/100`);
-
-    // ---------------- COMPLETION ----------------
-    const completed = Object.values(fields).filter(v => v).length;
-    const completion = Math.round((completed / Object.keys(fields).length) * 100);
-
-    setText("completion", `Resume Completion: ${completion}%`);
-
-    const bar = document.getElementById("progressBar");
-    if (bar) bar.style.width = completion + "%";
-
-    // ---------------- STRENGTH ----------------
-    let strength =
-        atsScore < 50 ? "Weak" :
-        atsScore < 80 ? "Good" : "Excellent";
-
-    setText("strength", `Resume Strength: ${strength}`);
-
-    // ---------------- PREVIEW ----------------
-    setText("showName", name);
-    setText("showEmail", email);
-    setText("showPhone", phone);
-    setText("showEducation", education);
-    setText("showProject", project);
-    setText("showExperience", experience);
-    setText("showLinkedin", linkedin);
-    setText("showGitHub", github);
-    setText("showCertification", certification);
-    setText("showLanguages", languages);
-    setText("showSummary", summary);
-
     // ---------------- SKILLS ----------------
     const skillArray = skills.split(",").map(s => s.trim()).filter(Boolean);
 
-    const skillBox = document.getElementById("showSkills");
-    if (skillBox) {
-        skillBox.innerHTML = skillArray
-            .map(skill => `<span class="skill-tag">${skill}</span>`)
-            .join(" ");
+    document.getElementById("showSkills").innerHTML =
+        skillArray.map(s => `<span class="skill-tag">${s}</span>`).join(" ");
+
+    // ---------------- PREVIEW ----------------
+    const set = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val;
+    };
+
+    set("showName", name);
+    set("showEmail", email);
+    set("showPhone", phone);
+    set("showEducation", education);
+    set("showProject", project);
+    set("showExperience", experience);
+    set("showLinkedin", linkedin);
+    set("showGitHub", github);
+    set("showCertification", certification);
+    set("showLanguages", languages);
+    set("showSummary", summary);
+
+    // ================= ATS SCORE (LOCAL) =================
+    let allFields = [name, email, education, skills, project, experience, certification];
+    let filled = allFields.filter(Boolean).length;
+
+    let atsScore = Math.round((filled / allFields.length) * 100);
+
+    set("atsScore", `ATS Score: ${atsScore}/100`);
+
+    let completion = Math.round((Object.values(fields).filter(Boolean).length / Object.keys(fields).length) * 100);
+
+    set("completion", `Resume Completion: ${completion}%`);
+
+    document.getElementById("progressBar").style.width = completion + "%";
+
+    set("strength",
+        atsScore < 50 ? "Weak" :
+        atsScore < 80 ? "Good" : "Excellent"
+    );
+
+    // ================= AI SUMMARY API =================
+    try {
+        let res = await fetch(`${API_BASE}/api/generate-summary`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, skills })
+        });
+
+        let data = await res.json();
+
+        if (data.summary) {
+            set("showSummary", "AI: " + data.summary);
+        }
+
+    } catch (e) {
+        console.log("AI error:", e);
     }
 
-    // ---------------- AI API (SUMMARY) ----------------
-    fetch("http://localhost:3000/api/generate-summary", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, skills })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.summary) {
-            setText("showSummary", "AI Summary: " + data.summary);
-        }
-    })
-    .catch(err => console.log("AI error:", err));
+    // ================= ATS API =================
+    try {
+        let res = await fetch(`${API_BASE}/api/analyze`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ skills, project })
+        });
 
-    // ---------------- ATS API ----------------
-    fetch("http://localhost:3000/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ skills, project })
-    })
-    .then(res => res.json())
-    .then(data => {
+        let data = await res.json();
 
-        if (data.atsScore) {
-            setText("atsScore", `ATS Score: ${data.atsScore}/100`);
-        }
+        if (data.atsScore) set("atsScore", `ATS Score: ${data.atsScore}/100`);
+        if (data.suggestion) set("atsSuggestion", data.suggestion);
 
-        if (data.suggestion) {
-            setText("atsSuggestion", data.suggestion);
-        }
-    })
-    .catch(err => console.log("ATS error:", err));
+    } catch (e) {
+        console.log("ATS error:", e);
+    }
 }
 
 // ===================== CLEAR =====================
@@ -202,12 +185,11 @@ function login() {
     let user = document.getElementById("loginUser")?.value;
     let pass = document.getElementById("loginPass")?.value;
 
-    if (user === "admin" && pass === "1234") {
+    if (user === "Sonu" && pass === "1234") {
         document.getElementById("loginPage").style.display = "none";
         document.getElementById("app").style.display = "block";
     } else {
-        const err = document.getElementById("loginError");
-        if (err) err.innerText = "Wrong username or password";
+        document.getElementById("loginError").innerText = "Wrong username or password";
     }
 }
 
@@ -217,14 +199,16 @@ function logout() {
     document.getElementById("loginPage").style.display = "block";
 }
 
-// ===================== LOAD SAVED DATA =====================
+// ===================== LOAD DATA =====================
 window.onload = function () {
 
+    
     const keys = [
         "name","email","phone","education","skills",
         "project","experience","linkedin","github",
         "certification","languages","summary"
     ];
+    livePreview();
 
     keys.forEach(key => {
         const el = document.getElementById(key);
@@ -232,44 +216,59 @@ window.onload = function () {
     });
 };
 
+function changeTemplate() {
+    const resume = document.getElementById("resume");
+    const template = document.getElementById("template");
+
+    if (!resume || !template) return;
+
+    const value = template.value;
+
+    resume.classList.remove("simple", "professional", "modern", "creative");
+    resume.classList.add(value);
+}
+
 // ===================== JOB MATCH =====================
 function analyzeJobMatch() {
 
     let skills = (document.getElementById("skills")?.value || "").toLowerCase();
     let project = (document.getElementById("project")?.value || "").toLowerCase();
-    let jobDescription = (document.getElementById("jobDescription")?.value || "").toLowerCase();
+    let job = (document.getElementById("jobDescription")?.value || "").toLowerCase();
 
-    if (!jobDescription) {
-        alert("Please paste job description first");
-        return;
-    }
+    if (!job) return alert("Paste job description first");
 
     let resumeText = skills + " " + project;
 
-    let keywords = [
-        "javascript", "react", "node", "express", "mongodb",
-        "java", "python", "sql", "html", "css"
-    ];
+    let keywords = ["javascript","react","node","express","mongodb","python","sql","html","css"];
 
     let matched = 0;
     let missing = [];
 
-    keywords.forEach(keyword => {
-        if (jobDescription.includes(keyword) && resumeText.includes(keyword)) {
-            matched++;
-        } else if (jobDescription.includes(keyword)) {
-            missing.push(keyword);
-        }
+    keywords.forEach(k => {
+        if (job.includes(k) && resumeText.includes(k)) matched++;
+        else if (job.includes(k)) missing.push(k);
     });
 
     let score = Math.round((matched / keywords.length) * 100);
 
-    const setText = (id, val) => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = val || "";
-    };
+    document.getElementById("matchScore").innerText = `Match Score: ${score}%`;
+    document.getElementById("missingKeywords").innerText = `Missing: ${missing.join(", ")}`;
+}
 
-    setText("matchScore", `Job Match Score: ${score}%`);
-    setText("missingKeywords", `Missing Keywords: ${missing.join(", ")}`);
+function livePreview() {
+
+    const fields = [
+        "name","email","phone","education","skills",
+        "project","experience","certification",
+        "languages","summary","linkedin","github"
+    ];
+
+    fields.forEach(id => {
+        let el = document.getElementById(id);
+
+        if (el) {
+            el.addEventListener("input", generateResume);
+        }
+    });
 }
 

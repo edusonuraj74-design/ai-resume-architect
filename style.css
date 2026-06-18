@@ -8,6 +8,7 @@
 
 body {
     background: #f1f5f9;
+    transition: 0.3s ease;
 }
 
 /* ================= LOGIN ================= */
@@ -29,10 +30,8 @@ body {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
-}
-
-.login-box button {
-    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
 /* ================= APP LAYOUT ================= */
@@ -57,9 +56,20 @@ body {
     margin-bottom: 20px;
 }
 
+/* scoped sidebar buttons */
 .sidebar button {
     width: 100%;
     margin-top: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.sidebar button:hover {
+    background: #1d4ed8;
 }
 
 /* ================= MAIN CONTENT ================= */
@@ -76,7 +86,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* ================= TWO PANEL ================= */
+/* ================= TWO PANEL LAYOUT ================= */
 .container {
     display: flex;
     gap: 20px;
@@ -118,14 +128,15 @@ body {
     flex: 1;
 }
 
-/* ================= RESUME ================= */
+/* ================= RESUME BASE ================= */
 .resume {
     background: white;
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,.15);
     width: 100%;
-    min-height: 1100px;
+    min-height: auto;
+    transition: all 0.3s ease;
 }
 
 /* ================= PHOTO ================= */
@@ -174,9 +185,10 @@ body {
     padding: 6px 12px;
     border-radius: 20px;
     margin: 4px;
+    font-size: 14px;
 }
 
-/* ================= BUTTONS ================= */
+/* ================= BUTTONS (GLOBAL SAFE) ================= */
 button {
     background: #2563eb;
     color: white;
@@ -185,6 +197,7 @@ button {
     border-radius: 8px;
     cursor: pointer;
     margin: 5px;
+    transition: 0.2s;
 }
 
 button:hover {
@@ -209,7 +222,7 @@ button:hover {
 
 /* ================= DARK MODE ================= */
 .dark-mode {
-    background: #111827;
+    background: #0f172a;
     color: white;
 }
 
@@ -240,23 +253,41 @@ button:hover {
     border-top: 8px solid #dc2626;
 }
 
-/* ================= TEMPLATES ================= */
-.simple {
+/* ================= TEMPLATES (FIXED STRUCTURE) ================= */
+
+/* SIMPLE */
+.resume.simple {
     font-family: Arial, sans-serif;
 }
 
-.professional {
+/* PROFESSIONAL */
+.resume.professional {
     font-family: Georgia, serif;
     border-left: 8px solid #2563eb;
 }
 
-.modern {
+/* MODERN */
+.resume.modern {
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to bottom,#ffffff,#f1f5f9);
+    background: linear-gradient(to bottom, #ffffff, #f1f5f9);
     box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
 
-/* ================= MOBILE ================= */
+/* CREATIVE (NEW FIXED) */
+.resume.creative {
+    font-family: "Courier New", monospace;
+    background: #0b0f19;
+    color: #00ff88;
+    border: 2px dashed #00ff88;
+}
+
+/* DARK MODE + MODERN FIX */
+.dark-mode .resume.modern {
+    background: #111827;
+    color: white;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
 @media (max-width: 768px) {
 
     .sidebar {
@@ -275,9 +306,5 @@ button:hover {
     .left-panel,
     .right-panel {
         width: 100%;
-    }
-
-    .resume {
-        min-height: auto;
     }
 }

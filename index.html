@@ -5,12 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Resume Architect</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- PDF LIB -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- ================= LOGIN PAGE ================= -->
 <div id="loginPage" class="login-box">
 
     <h2>AI Resume Architect</h2>
@@ -21,7 +25,6 @@
     <button onclick="login()">Login</button>
 
     <p id="loginError"></p>
-
 </div>
 
 <!-- ================= APP ================= -->
@@ -29,7 +32,6 @@
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-
         <h2>AI Resume</h2>
 
         <button onclick="showPage('dashboard')">🏠 Dashboard</button>
@@ -38,7 +40,6 @@
         <button onclick="showPage('settings')">⚙ Settings</button>
 
         <button onclick="logout()">🚪 Logout</button>
-
     </div>
 
     <!-- MAIN CONTENT -->
@@ -66,7 +67,7 @@
                 <input type="text" id="phone">
 
                 <label>Profile Photo</label>
-                <input type="file" id="photo">
+                <input type="file" id="photo" accept="image/*">
 
                 <label>Education</label>
                 <input type="text" id="education">
@@ -103,10 +104,11 @@
                 </select>
 
                 <label>Template</label>
-                <select id="template">
+                <select id="template" onchange="changeTemplate()">
                     <option value="simple">Simple</option>
                     <option value="professional">Professional</option>
                     <option value="modern">Modern</option>
+                    <option value="creative">Creative</option>
                 </select>
 
                 <button onclick="generateResume()">Generate Resume</button>
@@ -131,7 +133,8 @@
             <!-- RIGHT PANEL -->
             <div class="right-panel">
 
-                <div class="resume">
+                <!-- RESUME PREVIEW -->
+                <div id="resume" class="resume simple">
 
                     <img id="showPhoto" alt="Profile Photo">
 
@@ -189,7 +192,6 @@
 </div>
 
 <!-- ================= SCRIPTS ================= -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="script.js"></script>
 
 </body>
