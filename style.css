@@ -1,301 +1,283 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+/* ================= GLOBAL RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-body{
-    background:#f1f5f9;
+body {
+    background: #f1f5f9;
 }
 
-/* LOGIN */
-
-.login-box{
-    width:400px;
-    margin:100px auto;
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
+/* ================= LOGIN ================= */
+.login-box {
+    width: 400px;
+    margin: 100px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.15);
 }
 
-.login-box h2{
-    text-align:center;
-    margin-bottom:20px;
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.login-box input{
-    width:100%;
-    padding:12px;
-    margin-bottom:15px;
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
 }
 
-.login-box button{
-    width:100%;
+.login-box button {
+    width: 100%;
 }
 
-/* APP */
-
-#app{
-    display:flex;
+/* ================= APP LAYOUT ================= */
+#app {
+    display: flex;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-    width:220px;
-    height:100vh;
-    position:fixed;
-    left:0;
-    top:0;
-    background:#0f172a;
-    padding:20px;
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #0f172a;
+    padding: 20px;
 }
 
-.sidebar h2{
-    color:white;
-    text-align:center;
-    margin-bottom:20px;
+.sidebar h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.sidebar button{
-    width:100%;
-    margin-top:10px;
+.sidebar button {
+    width: 100%;
+    margin-top: 10px;
 }
 
-/* MAIN */
-
-.main-content{
-    margin-left:240px;
-    width:calc(100% - 240px);
-    padding:20px;
+/* ================= MAIN CONTENT ================= */
+.main-content {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 20px;
 }
 
-.app-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-/* TWO PANEL */
-
-.container{
-    display:flex;
-    gap:20px;
-    align-items:flex-start;
+/* ================= TWO PANEL ================= */
+.container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
 }
 
-/* LEFT PANEL */
-
-.left-panel{
-    flex:1;
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+/* ================= LEFT PANEL ================= */
+.left-panel {
+    flex: 1;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.left-panel h2{
-    margin-bottom:20px;
+.left-panel h2 {
+    margin-bottom: 20px;
 }
 
-.left-panel label{
-    display:block;
-    font-weight:600;
-    margin-top:10px;
-    margin-bottom:5px;
+.left-panel label {
+    display: block;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .left-panel input,
 .left-panel textarea,
-.left-panel select{
-    width:100%;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    margin-bottom:10px;
+.left-panel select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
-/* RIGHT PANEL */
-
-.right-panel{
-    flex:1;
+/* ================= RIGHT PANEL ================= */
+.right-panel {
+    flex: 1;
 }
 
-/* RESUME */
-
-.resume{
-    background:white;
-    padding:40px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
-
-    width:100%;
-    min-height:1100px;
+/* ================= RESUME ================= */
+.resume {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    width: 100%;
+    min-height: 1100px;
 }
 
-/* PHOTO */
-
-#showPhoto{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    display:block;
-    margin:auto;
-    border:4px solid #2563eb;
+/* ================= PHOTO ================= */
+#showPhoto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+    border: 4px solid #2563eb;
 }
 
-/* NAME */
-
-#showName{
-    text-align:center;
-    font-size:32px;
-    font-weight:bold;
-    margin-top:15px;
+/* ================= NAME ================= */
+#showName {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 15px;
 }
 
-/* CONTACT */
-
+/* ================= CONTACT ================= */
 #showEmail,
 #showPhone,
 #showLinkedin,
-#showGitHub{
-    text-align:center;
-    margin-top:5px;
-    color:#555;
+#showGitHub {
+    text-align: center;
+    margin-top: 5px;
+    color: #555;
 }
 
-/* HEADINGS */
-
-.resume h3{
-    margin-top:25px;
-    margin-bottom:10px;
-    color:#2563eb;
-    border-bottom:2px solid #e5e7eb;
-    padding-bottom:5px;
+/* ================= HEADINGS ================= */
+.resume h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #2563eb;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 5px;
 }
 
-/* SKILLS */
-
-.skill-tag{
-    display:inline-block;
-    background:#2563eb;
-    color:white;
-    padding:6px 12px;
-    border-radius:20px;
-    margin:4px;
+/* ================= SKILLS ================= */
+.skill-tag {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin: 4px;
 }
 
-/* BUTTONS */
-
-button{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:12px 18px;
-    border-radius:8px;
-    cursor:pointer;
-    margin:5px;
+/* ================= BUTTONS ================= */
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
 }
 
-button:hover{
-    background:#1d4ed8;
+button:hover {
+    background: #1d4ed8;
 }
 
-/* PROGRESS */
-
-.progress{
-    width:100%;
-    height:20px;
-    background:#e5e7eb;
-    border-radius:10px;
-    overflow:hidden;
-    margin-top:10px;
+/* ================= PROGRESS BAR ================= */
+.progress {
+    width: 100%;
+    height: 20px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
 }
 
-#progressBar{
-    height:100%;
-    width:0%;
-    background:#22c55e;
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: #22c55e;
 }
 
-/* DARK MODE */
-
-.dark-mode{
-    background:#111827;
+/* ================= DARK MODE ================= */
+.dark-mode {
+    background: #111827;
+    color: white;
 }
 
 .dark-mode .left-panel,
-.dark-mode .resume{
-    background:#1f2937;
-    color:white;
+.dark-mode .resume {
+    background: #1f2937;
+    color: white;
 }
 
 .dark-mode input,
 .dark-mode textarea,
-.dark-mode select{
-    background:#374151;
-    color:white;
-    border:1px solid #555;
+.dark-mode select {
+    background: #374151;
+    color: white;
+    border: 1px solid #555;
 }
 
-/* MOBILE */
-
-@media(max-width:768px){
-
-    .sidebar{
-        display:none;
-    }
-
-    .main-content{
-        margin-left:0;
-        width:100%;
-    }
-
-    .container{
-        flex-direction:column;
-    }
-
-    .left-panel,
-    .right-panel{
-        width:100%;
-    }
-
-    .resume{
-        min-height:auto;
-    }
-
-    /* ===== THEMES ===== */
-
-.blue{
+/* ================= THEMES ================= */
+.blue {
     border-top: 8px solid #2563eb;
 }
 
-.green{
+.green {
     border-top: 8px solid #16a34a;
 }
 
-.red{
+.red {
     border-top: 8px solid #dc2626;
 }
 
-/* ===== TEMPLATES ===== */
-
-.simple{
+/* ================= TEMPLATES ================= */
+.simple {
     font-family: Arial, sans-serif;
 }
 
-.professional{
+.professional {
     font-family: Georgia, serif;
     border-left: 8px solid #2563eb;
 }
 
-.modern{
+.modern {
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(to bottom,#ffffff,#f1f5f9);
     box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+    }
+
+    .resume {
+        min-height: auto;
+    }
 }

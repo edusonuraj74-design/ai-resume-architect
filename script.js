@@ -1,5 +1,5 @@
+// ===================== RESUME DOWNLOAD =====================
 function downloadResume() {
-
     const element = document.querySelector(".resume");
 
     if (!element) {
@@ -7,9 +7,7 @@ function downloadResume() {
         return;
     }
 
-    // wait for render (VERY IMPORTANT)
     setTimeout(() => {
-
         html2pdf()
             .set({
                 margin: 10,
@@ -28,31 +26,33 @@ function downloadResume() {
             })
             .from(element)
             .save();
-
-    }, 500);
+    }, 300);
 }
 
-
+// ===================== PRINT =====================
 function printResume() {
     window.print();
 }
 
+// ===================== GENERATE RESUME =====================
 function generateResume() {
 
-    // ---------------- INPUT VALUES ----------------
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let phone = document.getElementById("phone").value;
-    let education = document.getElementById("education").value;
-    let skills = document.getElementById("skills").value;
-    let project = document.getElementById("project").value;
-    let experience = document.getElementById("experience").value;
-    let certification = document.getElementById("certification").value;
-    let languages = document.getElementById("languages").value;
-    let summary = document.getElementById("summary").value;
-    let linkedin = document.getElementById("linkedin").value;
-    let github = document.getElementById("github").value;
-    let photo = document.getElementById("photo").files[0];
+    const get = (id) => document.getElementById(id)?.value || "";
+
+    let name = get("name");
+    let email = get("email");
+    let phone = get("phone");
+    let education = get("education");
+    let skills = get("skills");
+    let project = get("project");
+    let experience = get("experience");
+    let certification = get("certification");
+    let languages = get("languages");
+    let summary = get("summary");
+    let linkedin = get("linkedin");
+    let github = get("github");
+
+    let photo = document.getElementById("photo")?.files[0];
 
     // ---------------- VALIDATION ----------------
     if (!name || !email || !phone || !education || !skills || !project) {
@@ -60,17 +60,15 @@ function generateResume() {
         return;
     }
 
-    // ---------------- RESUME ELEMENT ----------------
-    let resume = document.querySelector(".resume");
-
+    const resume = document.querySelector(".resume");
     if (!resume) {
         alert("Resume container missing!");
         return;
     }
 
     // ---------------- TEMPLATE + THEME ----------------
-    let template = document.getElementById("template").value;
-    let theme = document.getElementById("theme").value;
+    let template = document.getElementById("template")?.value || "simple";
+    let theme = document.getElementById("theme")?.value || "blue";
 
     resume.classList.remove("simple", "professional", "modern");
     resume.classList.add(template);
@@ -79,83 +77,82 @@ function generateResume() {
     resume.classList.add(theme);
 
     // ---------------- LOCAL STORAGE ----------------
-    let fields = {
+    const fields = {
         name, email, phone, education, skills,
         project, experience, certification,
         languages, summary, linkedin, github
     };
 
-    for (let key in fields) {
+    Object.keys(fields).forEach(key => {
         localStorage.setItem(key, fields[key]);
-    }
+    });
 
     // ---------------- PHOTO ----------------
     if (photo) {
-        let reader = new FileReader();
-
-        reader.onload = function (e) {
-            document.getElementById("showPhoto").src = e.target.result;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = document.getElementById("showPhoto");
+            if (img) img.src = e.target.result;
         };
-
         reader.readAsDataURL(photo);
     }
 
     // ---------------- ATS SCORE ----------------
     let score = 0;
-    let total = 7;
+    const total = 7;
 
-    if (name) score++;
-    if (email) score++;
-    if (education) score++;
-    if (skills) score++;
-    if (project) score++;
-    if (experience) score++;
-    if (certification) score++;
+    [name, email, education, skills, project, experience, certification]
+        .forEach(v => v && score++);
 
     let atsScore = Math.round((score / total) * 100);
 
-    document.getElementById("atsScore").innerText =
-        "ATS Score: " + atsScore + "/100";
+    const setText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val || "";
+    };
+
+    setText("atsScore", `ATS Score: ${atsScore}/100`);
 
     // ---------------- COMPLETION ----------------
-    let completed = Object.values(fields).filter(v => v).length;
-    let completion = Math.round((completed / Object.keys(fields).length) * 100);
+    const completed = Object.values(fields).filter(v => v).length;
+    const completion = Math.round((completed / Object.keys(fields).length) * 100);
 
-    document.getElementById("completion").innerText =
-        "Resume Completion: " + completion + "%";
+    setText("completion", `Resume Completion: ${completion}%`);
 
-    document.getElementById("progressBar").style.width = completion + "%";
+    const bar = document.getElementById("progressBar");
+    if (bar) bar.style.width = completion + "%";
 
     // ---------------- STRENGTH ----------------
-    let strength = "";
-    if (atsScore < 50) strength = "Weak";
-    else if (atsScore < 80) strength = "Good";
-    else strength = "Excellent";
+    let strength =
+        atsScore < 50 ? "Weak" :
+        atsScore < 80 ? "Good" : "Excellent";
 
-    document.getElementById("strength").innerText =
-        "Resume Strength: " + strength;
+    setText("strength", `Resume Strength: ${strength}`);
 
     // ---------------- PREVIEW ----------------
-    document.getElementById("showName").innerText = name;
-    document.getElementById("showEmail").innerText = email;
-    document.getElementById("showPhone").innerText = phone;
-    document.getElementById("showEducation").innerText = education;
-    document.getElementById("showProject").innerText = project;
-    document.getElementById("showExperience").innerText = experience;
-    document.getElementById("showLinkedin").innerText = linkedin;
-    document.getElementById("showGitHub").innerText = github;
-    document.getElementById("showCertification").innerText = certification;
-    document.getElementById("showLanguages").innerText = languages;
-    document.getElementById("showSummary").innerText = summary;
+    setText("showName", name);
+    setText("showEmail", email);
+    setText("showPhone", phone);
+    setText("showEducation", education);
+    setText("showProject", project);
+    setText("showExperience", experience);
+    setText("showLinkedin", linkedin);
+    setText("showGitHub", github);
+    setText("showCertification", certification);
+    setText("showLanguages", languages);
+    setText("showSummary", summary);
 
-    // ---------------- SKILLS TAGS ----------------
-    let skillArray = skills.split(",");
-    document.getElementById("showSkills").innerHTML =
-        skillArray.map(skill =>
-            `<span class="skill-tag">${skill.trim()}</span>`
-        ).join(" ");
+    // ---------------- SKILLS ----------------
+    const skillArray = skills.split(",").map(s => s.trim()).filter(Boolean);
 
-    // ---------------- AI SUMMARY API ----------------
+    const skillBox = document.getElementById("showSkills");
+    if (skillBox) {
+        skillBox.innerHTML = skillArray
+            .map(skill => `<span class="skill-tag">${skill}</span>`)
+            .join(" ");
+    }
+
+    // ---------------- AI API (SUMMARY) ----------------
     fetch("http://localhost:3000/api/generate-summary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -164,8 +161,7 @@ function generateResume() {
     .then(res => res.json())
     .then(data => {
         if (data.summary) {
-            document.getElementById("showSummary").innerText =
-                "AI Summary: " + data.summary;
+            setText("showSummary", "AI Summary: " + data.summary);
         }
     })
     .catch(err => console.log("AI error:", err));
@@ -178,65 +174,70 @@ function generateResume() {
     })
     .then(res => res.json())
     .then(data => {
+
         if (data.atsScore) {
-            document.getElementById("atsScore").innerText =
-                "ATS Score: " + data.atsScore + "/100";
+            setText("atsScore", `ATS Score: ${data.atsScore}/100`);
         }
 
         if (data.suggestion) {
-            document.getElementById("atsSuggestion").innerText =
-                data.suggestion;
+            setText("atsSuggestion", data.suggestion);
         }
     })
     .catch(err => console.log("ATS error:", err));
 }
 
+// ===================== CLEAR =====================
 function clearForm() {
     localStorage.clear();
     location.reload();
 }
 
+// ===================== DARK MODE =====================
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
 }
 
-// ---------------- LOGIN ----------------
+// ===================== LOGIN =====================
 function login() {
-    let user = document.getElementById("loginUser").value;
-    let pass = document.getElementById("loginPass").value;
+    let user = document.getElementById("loginUser")?.value;
+    let pass = document.getElementById("loginPass")?.value;
 
     if (user === "admin" && pass === "1234") {
         document.getElementById("loginPage").style.display = "none";
         document.getElementById("app").style.display = "block";
     } else {
-        document.getElementById("loginError").innerText =
-            "Wrong username or password";
+        const err = document.getElementById("loginError");
+        if (err) err.innerText = "Wrong username or password";
     }
 }
 
+// ===================== LOGOUT =====================
 function logout() {
     document.getElementById("app").style.display = "none";
     document.getElementById("loginPage").style.display = "block";
 }
 
-// ---------------- LOAD SAVED DATA ----------------
+// ===================== LOAD SAVED DATA =====================
 window.onload = function () {
-    let keys = [
+
+    const keys = [
         "name","email","phone","education","skills",
         "project","experience","linkedin","github",
         "certification","languages","summary"
     ];
 
     keys.forEach(key => {
-        let el = document.getElementById(key);
+        const el = document.getElementById(key);
         if (el) el.value = localStorage.getItem(key) || "";
     });
 };
+
+// ===================== JOB MATCH =====================
 function analyzeJobMatch() {
 
-    let skills = document.getElementById("skills").value.toLowerCase();
-    let project = document.getElementById("project").value.toLowerCase();
-    let jobDescription = document.getElementById("jobDescription").value.toLowerCase();
+    let skills = (document.getElementById("skills")?.value || "").toLowerCase();
+    let project = (document.getElementById("project")?.value || "").toLowerCase();
+    let jobDescription = (document.getElementById("jobDescription")?.value || "").toLowerCase();
 
     if (!jobDescription) {
         alert("Please paste job description first");
@@ -246,8 +247,8 @@ function analyzeJobMatch() {
     let resumeText = skills + " " + project;
 
     let keywords = [
-        "javascript","react","node","express","mongodb",
-        "java","python","sql","html","css"
+        "javascript", "react", "node", "express", "mongodb",
+        "java", "python", "sql", "html", "css"
     ];
 
     let matched = 0;
@@ -256,19 +257,19 @@ function analyzeJobMatch() {
     keywords.forEach(keyword => {
         if (jobDescription.includes(keyword) && resumeText.includes(keyword)) {
             matched++;
-        } 
-        else if (jobDescription.includes(keyword)) {
+        } else if (jobDescription.includes(keyword)) {
             missing.push(keyword);
         }
     });
 
     let score = Math.round((matched / keywords.length) * 100);
 
-    document.getElementById("matchScore").innerText =
-        "Job Match Score: " + score + "%";
+    const setText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val || "";
+    };
 
-    document.getElementById("missingKeywords").innerText =
-        "Missing Keywords: " + missing.join(", ");
+    setText("matchScore", `Job Match Score: ${score}%`);
+    setText("missingKeywords", `Missing Keywords: ${missing.join(", ")}`);
 }
-
 

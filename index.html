@@ -10,181 +10,174 @@
 
 <body>
 
-<!-- LOGIN -->
-
+<!-- ================= LOGIN ================= -->
 <div id="loginPage" class="login-box">
 
-```
-<h2>AI Resume Architect</h2>
+    <h2>AI Resume Architect</h2>
 
-<input type="text" id="loginUser" placeholder="Username">
-<input type="password" id="loginPass" placeholder="Password">
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
 
-<button onclick="login()">Login</button>
+    <button onclick="login()">Login</button>
 
-<p id="loginError"></p>
-```
+    <p id="loginError"></p>
 
 </div>
 
-<!-- APP -->
-
+<!-- ================= APP ================= -->
 <div id="app" style="display:none;">
 
-```
-<!-- SIDEBAR -->
-<div class="sidebar">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
 
-    <h2>AI Resume</h2>
+        <h2>AI Resume</h2>
 
-    <button>🏠 Dashboard</button>
-    <button>📄 Resume</button>
-    <button>📊 Analytics</button>
-    <button>⚙ Settings</button>
+        <button onclick="showPage('dashboard')">🏠 Dashboard</button>
+        <button onclick="showPage('resume')">📄 Resume</button>
+        <button onclick="showPage('analytics')">📊 Analytics</button>
+        <button onclick="showPage('settings')">⚙ Settings</button>
 
-    <button onclick="logout()">🚪 Logout</button>
+        <button onclick="logout()">🚪 Logout</button>
 
-</div>
-
-<!-- MAIN -->
-<div class="main-content">
-
-    <div class="app-header">
-        <h1>AI Resume Architect</h1>
-        <button onclick="logout()">Logout</button>
     </div>
 
-    <div class="container">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
 
-        <!-- LEFT PANEL -->
-        <div class="left-panel">
-
-            <h2>Resume Builder</h2>
-
-            <label>Name</label>
-            <input type="text" id="name">
-
-            <label>Email</label>
-            <input type="email" id="email">
-
-            <label>Phone</label>
-            <input type="text" id="phone">
-
-            <label>Profile Photo</label>
-            <input type="file" id="photo">
-
-            <label>Education</label>
-            <input type="text" id="education">
-
-            <label>Skills (comma separated)</label>
-            <input type="text" id="skills">
-
-            <label>Project</label>
-            <input type="text" id="project">
-
-            <label>Experience</label>
-            <input type="text" id="experience">
-
-            <label>Certification</label>
-            <input type="text" id="certification">
-
-            <label>Languages</label>
-            <input type="text" id="languages">
-
-            <label>Profile Summary</label>
-            <textarea id="summary" rows="4"></textarea>
-
-            <label>LinkedIn</label>
-            <input type="text" id="linkedin">
-
-            <label>GitHub</label>
-            <input type="text" id="github">
-
-            <label>Theme</label>
-            <select id="theme">
-                <option value="blue">Blue</option>
-                <option value="green">Green</option>
-                <option value="red">Red</option>
-            </select>
-
-            <label>Template</label>
-            <select id="template">
-                <option value="simple">Simple</option>
-                <option value="professional">Professional</option>
-                <option value="modern">Modern</option>
-            </select>
-
-            <button onclick="generateResume()">Generate Resume</button>
-            <button onclick="downloadResume()">Download Resume</button>
-            <button onclick="printResume()">Print Resume</button>
-            <button onclick="clearForm()">Clear Form</button>
-            <button onclick="toggleDarkMode()">Dark Mode</button>
-
-            <hr>
-
-            <h2>Job Description Analyzer</h2>
-
-            <textarea id="jobDescription" rows="6" placeholder="Paste Job Description Here"></textarea>
-
-            <button onclick="analyzeJobMatch()">
-                Analyze Job Match
-            </button>
-
-            <p id="matchScore"></p>
-            <p id="missingKeywords"></p>
-
+        <div class="app-header">
+            <h1>AI Resume Architect</h1>
+            <button onclick="logout()">Logout</button>
         </div>
 
-        <!-- RIGHT PANEL -->
-        <div class="right-panel">
+        <div class="container">
 
-            <div class="resume">
+            <!-- LEFT PANEL -->
+            <div class="left-panel">
 
-                <img id="showPhoto" alt="Profile Photo">
+                <h2>Resume Builder</h2>
 
-                <h1 id="showName"></h1>
+                <label>Name</label>
+                <input type="text" id="name">
 
-                <p id="showEmail"></p>
-                <p id="showPhone"></p>
+                <label>Email</label>
+                <input type="email" id="email">
 
-                <p id="showLinkedin"></p>
-                <p id="showGitHub"></p>
+                <label>Phone</label>
+                <input type="text" id="phone">
+
+                <label>Profile Photo</label>
+                <input type="file" id="photo">
+
+                <label>Education</label>
+                <input type="text" id="education">
+
+                <label>Skills (comma separated)</label>
+                <input type="text" id="skills">
+
+                <label>Project</label>
+                <input type="text" id="project">
+
+                <label>Experience</label>
+                <input type="text" id="experience">
+
+                <label>Certification</label>
+                <input type="text" id="certification">
+
+                <label>Languages</label>
+                <input type="text" id="languages">
+
+                <label>Profile Summary</label>
+                <textarea id="summary" rows="4"></textarea>
+
+                <label>LinkedIn</label>
+                <input type="text" id="linkedin">
+
+                <label>GitHub</label>
+                <input type="text" id="github">
+
+                <label>Theme</label>
+                <select id="theme">
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="red">Red</option>
+                </select>
+
+                <label>Template</label>
+                <select id="template">
+                    <option value="simple">Simple</option>
+                    <option value="professional">Professional</option>
+                    <option value="modern">Modern</option>
+                </select>
+
+                <button onclick="generateResume()">Generate Resume</button>
+                <button onclick="downloadResume()">Download Resume</button>
+                <button onclick="printResume()">Print Resume</button>
+                <button onclick="clearForm()">Clear Form</button>
+                <button onclick="toggleDarkMode()">Dark Mode</button>
 
                 <hr>
 
-                <h3>Education</h3>
-                <p id="showEducation"></p>
+                <h2>Job Description Analyzer</h2>
 
-                <h3>Skills</h3>
-                <div id="showSkills"></div>
+                <textarea id="jobDescription" rows="6" placeholder="Paste Job Description Here"></textarea>
 
-                <h3>Projects</h3>
-                <p id="showProject"></p>
+                <button onclick="analyzeJobMatch()">Analyze Job Match</button>
 
-                <h3>Experience</h3>
-                <p id="showExperience"></p>
+                <p id="matchScore"></p>
+                <p id="missingKeywords"></p>
 
-                <h3>Certifications</h3>
-                <p id="showCertification"></p>
+            </div>
 
-                <h3>Languages</h3>
-                <p id="showLanguages"></p>
+            <!-- RIGHT PANEL -->
+            <div class="right-panel">
 
-                <h3>Profile Summary</h3>
-                <p id="showSummary"></p>
+                <div class="resume">
 
-                <hr>
+                    <img id="showPhoto" alt="Profile Photo">
 
-                <h3>ATS Analysis</h3>
+                    <h1 id="showName"></h1>
 
-                <p id="atsScore"></p>
-                <p id="completion"></p>
-                <p id="atsSuggestion"></p>
-                <p id="strength"></p>
-                <p id="skillCount"></p>
+                    <p id="showEmail"></p>
+                    <p id="showPhone"></p>
+                    <p id="showLinkedin"></p>
+                    <p id="showGitHub"></p>
 
-                <div class="progress">
-                    <div id="progressBar"></div>
+                    <hr>
+
+                    <h3>Education</h3>
+                    <p id="showEducation"></p>
+
+                    <h3>Skills</h3>
+                    <div id="showSkills"></div>
+
+                    <h3>Projects</h3>
+                    <p id="showProject"></p>
+
+                    <h3>Experience</h3>
+                    <p id="showExperience"></p>
+
+                    <h3>Certifications</h3>
+                    <p id="showCertification"></p>
+
+                    <h3>Languages</h3>
+                    <p id="showLanguages"></p>
+
+                    <h3>Profile Summary</h3>
+                    <p id="showSummary"></p>
+
+                    <hr>
+
+                    <h3>ATS Analysis</h3>
+
+                    <p id="atsScore"></p>
+                    <p id="completion"></p>
+                    <p id="atsSuggestion"></p>
+                    <p id="strength"></p>
+
+                    <div class="progress">
+                        <div id="progressBar"></div>
+                    </div>
+
                 </div>
 
             </div>
@@ -192,9 +185,6 @@
         </div>
 
     </div>
-
-</div>
-```
 
 </div>
 
