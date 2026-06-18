@@ -1,239 +1,301 @@
-* {
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
 }
 
-body {
-    margin: 0;
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: #111;
+body{
+    background:#f1f5f9;
 }
 
-/* ================= LOGIN ================= */
+/* LOGIN */
 
-.login-box {
-    width: 380px;
-    margin: 120px auto;
-    padding: 30px;
-    background: white;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+.login-box{
+    width:400px;
+    margin:100px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
 }
 
-.login-box h2 {
-    color: #1e3a8a;
+.login-box h2{
+    text-align:center;
+    margin-bottom:20px;
 }
 
-.login-box input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+.login-box input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
 }
 
-.login-box button {
-    width: 100%;
-    padding: 12px;
+.login-box button{
+    width:100%;
 }
 
-/* ================= APP LAYOUT ================= */
+/* APP */
 
-#app {
-    display: flex;
-    min-height: 100vh;
+#app{
+    display:flex;
 }
 
 /* SIDEBAR */
-.sidebar {
-    width: 220px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: #0f172a;
-    padding: 20px;
+
+.sidebar{
+    width:220px;
+    height:100vh;
+    position:fixed;
+    left:0;
+    top:0;
+    background:#0f172a;
+    padding:20px;
 }
 
-.sidebar h2 {
-    color: white;
-    text-align: center;
+.sidebar h2{
+    color:white;
+    text-align:center;
+    margin-bottom:20px;
 }
 
-.sidebar button {
-    width: 100%;
-    margin-top: 10px;
-    background: #1f2937;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.sidebar button:hover {
-    background: #374151;
+.sidebar button{
+    width:100%;
+    margin-top:10px;
 }
 
 /* MAIN */
-.main-content {
-    margin-left: 240px;
-    width: calc(100% - 240px);
-    padding: 20px;
+
+.main-content{
+    margin-left:240px;
+    width:calc(100% - 240px);
+    padding:20px;
 }
 
-/* HEADER */
-.app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.app-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
 }
 
-.app-header h1 {
-    color: white;
-}
+/* TWO PANEL */
 
-/* ================= TWO PANEL ================= */
-
-.container {
-    display: flex;
-    gap: 20px;
+.container{
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
 }
 
 /* LEFT PANEL */
-.left-panel {
-    flex: 1;
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
+
+.left-panel{
+    flex:1;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* RIGHT PANEL (IMPORTANT FIX) */
-.right-panel {
-    flex: 1;
+.left-panel h2{
+    margin-bottom:20px;
 }
 
-/* ================= RESUME PREVIEW ================= */
-
-.resume {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    min-height: 1000px;
+.left-panel label{
+    display:block;
+    font-weight:600;
+    margin-top:10px;
+    margin-bottom:5px;
 }
 
-/* PHOTO FIX */
-#showPhoto {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    margin: auto;
-    border: 4px solid #2563eb;
+.left-panel input,
+.left-panel textarea,
+.left-panel select{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    margin-bottom:10px;
 }
 
-/* NAME STYLE */
-#showName {
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: 15px;
+/* RIGHT PANEL */
+
+.right-panel{
+    flex:1;
 }
 
-/* ================= INPUTS ================= */
+/* RESUME */
 
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+.resume{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+    width:100%;
+    min-height:1100px;
 }
 
-/* ================= BUTTONS ================= */
+/* PHOTO */
 
-button {
-    background: #2563eb;
-    color: white;
-    padding: 10px 15px;
-    margin: 5px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+#showPhoto{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:auto;
+    border:4px solid #2563eb;
 }
 
-button:hover {
-    background: #1d4ed8;
+/* NAME */
+
+#showName{
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    margin-top:15px;
 }
 
-/* ================= SKILLS ================= */
+/* CONTACT */
 
-.skill-tag {
-    display: inline-block;
-    padding: 6px 12px;
-    margin: 4px;
-    border-radius: 20px;
-    background: #2563eb;
-    color: white;
+#showEmail,
+#showPhone,
+#showLinkedin,
+#showGitHub{
+    text-align:center;
+    margin-top:5px;
+    color:#555;
 }
 
-/* ================= PROGRESS BAR ================= */
+/* HEADINGS */
 
-.progress {
-    width: 100%;
-    height: 20px;
-    background: #e5e7eb;
-    border-radius: 10px;
-    overflow: hidden;
+.resume h3{
+    margin-top:25px;
+    margin-bottom:10px;
+    color:#2563eb;
+    border-bottom:2px solid #e5e7eb;
+    padding-bottom:5px;
 }
 
-#progressBar {
-    width: 0%;
-    height: 100%;
-    background: #22c55e;
+/* SKILLS */
+
+.skill-tag{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    margin:4px;
 }
 
-/* ================= DARK MODE FIX ================= */
+/* BUTTONS */
 
-.dark-mode {
-    background: #111827;
-    color: white;
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin:5px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+/* PROGRESS */
+
+.progress{
+    width:100%;
+    height:20px;
+    background:#e5e7eb;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+#progressBar{
+    height:100%;
+    width:0%;
+    background:#22c55e;
+}
+
+/* DARK MODE */
+
+.dark-mode{
+    background:#111827;
 }
 
 .dark-mode .left-panel,
-.dark-mode .resume {
-    background: #1f2937;
-    color: white;
+.dark-mode .resume{
+    background:#1f2937;
+    color:white;
 }
 
 .dark-mode input,
 .dark-mode textarea,
-.dark-mode select {
-    background: #374151;
-    color: white;
-    border: 1px solid #555;
+.dark-mode select{
+    background:#374151;
+    color:white;
+    border:1px solid #555;
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 
-@media (max-width: 768px) {
+@media(max-width:768px){
 
-    .sidebar {
-        display: none;
+    .sidebar{
+        display:none;
     }
 
-    .main-content {
-        margin-left: 0;
-        width: 100%;
+    .main-content{
+        margin-left:0;
+        width:100%;
     }
 
-    .container {
-        flex-direction: column;
+    .container{
+        flex-direction:column;
     }
+
+    .left-panel,
+    .right-panel{
+        width:100%;
+    }
+
+    .resume{
+        min-height:auto;
+    }
+
+    /* ===== THEMES ===== */
+
+.blue{
+    border-top: 8px solid #2563eb;
+}
+
+.green{
+    border-top: 8px solid #16a34a;
+}
+
+.red{
+    border-top: 8px solid #dc2626;
+}
+
+/* ===== TEMPLATES ===== */
+
+.simple{
+    font-family: Arial, sans-serif;
+}
+
+.professional{
+    font-family: Georgia, serif;
+    border-left: 8px solid #2563eb;
+}
+
+.modern{
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom,#ffffff,#f1f5f9);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
 }

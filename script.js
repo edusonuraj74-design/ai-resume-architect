@@ -1,4 +1,5 @@
 function downloadResume() {
+
     const element = document.querySelector(".resume");
 
     if (!element) {
@@ -6,22 +7,31 @@ function downloadResume() {
         return;
     }
 
-    console.log("Resume Text:", element.innerText);
+    // wait for render (VERY IMPORTANT)
+    setTimeout(() => {
 
-    html2pdf()
-        .set({
-            margin: 10,
-            filename: "Resume.pdf",
-            html2canvas: { scale: 2 },
-            jsPDF: {
-                unit: "mm",
-                format: "a4",
-                orientation: "portrait"
-            }
-        })
-        .from(element)
-        .save();
+        html2pdf()
+            .set({
+                margin: 10,
+                filename: "Resume.pdf",
+                image: { type: "jpeg", quality: 1 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    scrollY: 0
+                },
+                jsPDF: {
+                    unit: "mm",
+                    format: "a4",
+                    orientation: "portrait"
+                }
+            })
+            .from(element)
+            .save();
+
+    }, 500);
 }
+
 
 function printResume() {
     window.print();
