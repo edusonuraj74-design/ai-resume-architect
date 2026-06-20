@@ -115,23 +115,90 @@ async function generateResume() {
     set("showSummary", summary);
 
     // ================= ATS SCORE (LOCAL) =================
-    let allFields = [name, email, education, skills, project, experience, certification];
-    let filled = allFields.filter(Boolean).length;
+    // ================= ATS SCORE (LOCAL) =================
 
-    let atsScore = Math.round((filled / allFields.length) * 100);
+let allFields = [
+    name,
+    email,
+    education,
+    skills,
+    project,
+    experience,
+    certification
+];
 
-    set("atsScore", `ATS Score: ${atsScore}/100`);
+let filled = allFields.filter(Boolean).length;
 
-    let completion = Math.round((Object.values(fields).filter(Boolean).length / Object.keys(fields).length) * 100);
+let atsScore = Math.round((filled / allFields.length) * 100);
 
-    set("completion", `Resume Completion: ${completion}%`);
+set("atsScore", `ATS Score: ${atsScore}/100`);
 
-    document.getElementById("progressBar").style.width = completion + "%";
+// Resume Completion
+let completion = Math.round(
+    (Object.values(fields).filter(Boolean).length /
+    Object.keys(fields).length) * 100
+);
 
-    set("strength",
-        atsScore < 50 ? "Weak" :
-        atsScore < 80 ? "Good" : "Excellent"
-    );
+set("completion", `Resume Completion: ${completion}%`);
+
+document.getElementById("progressBar").style.width =
+    completion + "%";
+
+// Strength
+set(
+    "strength",
+    atsScore < 50
+        ? "Weak"
+        : atsScore < 80
+        ? "Good"
+        : "Excellent"
+);
+
+// Dashboard Update
+const dashboardATS =
+    document.getElementById("dashboardATS");
+
+const dashboardCompletion =
+    document.getElementById("dashboardCompletion");
+
+if (dashboardATS) {
+    dashboardATS.innerText = atsScore;
+}
+
+if (dashboardCompletion) {
+    dashboardCompletion.innerText = completion + "%";
+}
+
+// Analytics Update
+const analyticsATS =
+    document.getElementById("analyticsATS");
+
+const analyticsStrength =
+    document.getElementById("analyticsStrength");
+
+const analyticsCompletion =
+    document.getElementById("analyticsCompletion");
+
+if (analyticsATS) {
+    analyticsATS.innerText =
+        `ATS Score: ${atsScore}/100`;
+}
+
+if (analyticsStrength) {
+    analyticsStrength.innerText =
+        `Strength: ${
+            atsScore < 50
+                ? "Weak"
+                : atsScore < 80
+                ? "Good"
+                : "Excellent"
+        }`;
+}
+
+if (analyticsCompletion) {
+    analyticsCompletion.innerText =
+        `Resume Completion: ${completion}%`;
+}
 
     // ================= AI SUMMARY API =================
     try {
@@ -187,7 +254,9 @@ function login() {
 
     if (user === "Sonu" && pass === "1234") {
         document.getElementById("loginPage").style.display = "none";
-        document.getElementById("app").style.display = "block";
+        document.getElementById("app").style.display = "flex";
+
+    showSection("dashboard");
     } else {
         document.getElementById("loginError").innerText = "Wrong username or password";
     }
@@ -226,6 +295,17 @@ function changeTemplate() {
 
     resume.classList.remove("simple", "professional", "modern", "creative");
     resume.classList.add(value);
+}
+
+function changeTheme() {
+
+    const resume = document.getElementById("resume");
+    const theme = document.getElementById("theme");
+
+    if (!resume || !theme) return;
+
+    resume.classList.remove("blue", "green", "red");
+    resume.classList.add(theme.value);
 }
 
 // ===================== JOB MATCH =====================
@@ -270,5 +350,36 @@ function livePreview() {
             el.addEventListener("input", generateResume);
         }
     });
+
 }
 
+    // ===================== SIDEBAR NAVIGATION =====================
+
+function showSection(section) {
+
+    const dashboard = document.getElementById("dashboard");
+    const resumeSection = document.getElementById("resumeSection");
+    const analytics = document.getElementById("analytics");
+    const settings = document.getElementById("settings");
+
+    if (dashboard) dashboard.style.display = "none";
+    if (resumeSection) resumeSection.style.display = "none";
+    if (analytics) analytics.style.display = "none";
+    if (settings) settings.style.display = "none";
+
+    if (section === "dashboard") {
+        dashboard.style.display = "block";
+    }
+
+    if (section === "resume") {
+        resumeSection.style.display = "flex";
+    }
+
+    if (section === "analytics") {
+        analytics.style.display = "block";
+    }
+
+    if (section === "settings") {
+        settings.style.display = "block";
+    }
+}

@@ -32,14 +32,30 @@
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-        <h2>AI Resume</h2>
 
-        <button onclick="showPage('dashboard')">🏠 Dashboard</button>
-        <button onclick="showPage('resume')">📄 Resume</button>
-        <button onclick="showPage('analytics')">📊 Analytics</button>
-        <button onclick="showPage('settings')">⚙ Settings</button>
+    <h2>AI Resume</h2>
 
-        <button onclick="logout()">🚪 Logout</button>
+    <button onclick="showSection('dashboard')">
+        🏠 Dashboard
+    </button>
+
+    <button onclick="showSection('resume')">
+        📄 Resume
+    </button>
+
+    <button onclick="showSection('analytics')">
+        📊 Analytics
+    </button>
+
+    <button onclick="showSection('settings')">
+        ⚙ Settings
+    </button>
+
+    <button onclick="logout()">
+        🚪 Logout
+    </button>
+
+
     </div>
 
     <!-- MAIN CONTENT -->
@@ -49,8 +65,52 @@
             <h1>AI Resume Architect</h1>
             <button onclick="logout()">Logout</button>
         </div>
+        <!-- DASHBOARD -->
+<div id="dashboard" class="section">
 
-        <div class="container">
+    <h2>Dashboard</h2>
+
+    <p>Welcome to AI Resume Architect 🚀</p>
+
+    <div class="dashboard-cards">
+
+        <div class="card">
+            <h3>Total ATS Score</h3>
+            <p id="dashboardATS">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Resume Completion</h3>
+            <p id="dashboardCompletion">0%</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ANALYTICS -->
+<div id="analytics" class="section" style="display:none;">
+
+    <h2>Analytics</h2>
+
+    <p id="analyticsATS"></p>
+    <p id="analyticsStrength"></p>
+    <p id="analyticsCompletion"></p>
+
+</div>
+
+<!-- SETTINGS -->
+<div id="settings" class="section" style="display:none;">
+
+    <h2>Settings</h2>
+
+    <button onclick="toggleDarkMode()">
+        Toggle Dark Mode
+    </button>
+
+</div>
+
+        <div class="container" id="resumeSection" style="display:none;">
 
             <!-- LEFT PANEL -->
             <div class="left-panel">
@@ -97,7 +157,7 @@
                 <input type="text" id="github">
 
                 <label>Theme</label>
-                <select id="theme">
+                <select id="theme" onchange="changeTheme()">
                     <option value="blue">Blue</option>
                     <option value="green">Green</option>
                     <option value="red">Red</option>
