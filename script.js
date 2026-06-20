@@ -363,6 +363,48 @@ function analyzeJobMatch() {
     document.getElementById("missingKeywords").innerText = `Missing: ${missing.join(", ")}`;
 }
 
+function suggestSkills() {
+
+    const skills =
+        document.getElementById("skills")
+        .value
+        .toLowerCase();
+
+    let suggestions = [];
+
+    if (skills.includes("html"))
+        suggestions.push("Responsive Design");
+
+    if (skills.includes("css"))
+        suggestions.push("Tailwind CSS");
+
+    if (skills.includes("javascript"))
+        suggestions.push("React");
+
+    if (skills.includes("react"))
+        suggestions.push("Redux");
+
+    if (skills.includes("node"))
+        suggestions.push("Express.js");
+
+    if (skills.includes("mongodb"))
+        suggestions.push("Mongoose");
+
+    if (skills.includes("python"))
+        suggestions.push("Django");
+
+    if (skills.includes("java"))
+        suggestions.push("Spring Boot");
+
+    const box =
+        document.getElementById("skillSuggestions");
+
+    box.innerHTML =
+        suggestions.map(skill =>
+            `<span class="suggestion-tag">${skill}</span>`
+        ).join("");
+}
+
 function livePreview() {
 
     const fields = [

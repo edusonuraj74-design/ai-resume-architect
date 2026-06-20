@@ -311,6 +311,20 @@ button:hover {
     .right-panel {
         width: 100%;
     }
+
+    #skillSuggestions{
+    margin:10px 0 15px;
+}
+
+.suggestion-tag{
+    display:inline-block;
+    background:#16a34a;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    margin:4px;
+    font-size:14px;
+}
     /* ================= DASHBOARD ================= */
 
 .dashboard-cards{
