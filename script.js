@@ -51,24 +51,47 @@ async function generateResume() {
 
     let photo = document.getElementById("photo")?.files[0];
 
+
+// resume.classList.add(template);
+
     // ---------------- VALIDATION ----------------
     if (!name || !email || !phone) {
         alert("Please fill required fields!");
         return;
     }
 
-    const resume = document.getElementById("resume");
-    if (!resume) return alert("Resume container missing!");
+   const resume = document.getElementById("resume");
+if (!resume) return alert("Resume container missing!");
+
+let template = get("template") || "simple";
+let theme = get("theme") || "blue";
+
+resume.classList.remove(
+    "simple",
+    "professional",
+    "modern",
+    "creative"
+);
+
+// resume.classList.add(template);
+
+resume.classList.remove(
+    "blue",
+    "green",
+    "red"
+);
+
+resume.classList.add(theme);
 
     // ---------------- TEMPLATE ----------------
-    let template = get("template") || "simple";
-    let theme = get("theme") || "blue";
+    // let template = get("template") || "simple";
+    // let theme = get("theme") || "blue";
 
-    resume.classList.remove("simple", "professional", "modern", "creative");
-    resume.classList.add(template);
+    // resume.classList.remove("simple", "professional", "modern", "creative");
+    // resume.classList.add(template);
 
-    resume.classList.remove("blue", "green", "red");
-    resume.classList.add(theme);
+    // resume.classList.remove("blue", "green", "red");
+    // resume.classList.add(theme);
 
     // ---------------- SAVE LOCAL ----------------
     const fields = {
@@ -286,15 +309,20 @@ window.onload = function () {
 };
 
 function changeTemplate() {
+
     const resume = document.getElementById("resume");
-    const template = document.getElementById("template");
 
-    if (!resume || !template) return;
+    const template =
+        document.getElementById("template").value;
 
-    const value = template.value;
+    resume.classList.remove(
+        "simple",
+        "professional",
+        "modern",
+        "creative"
+    );
 
-    resume.classList.remove("simple", "professional", "modern", "creative");
-    resume.classList.add(value);
+    resume.classList.add(template);
 }
 
 function changeTheme() {

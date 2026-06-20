@@ -341,4 +341,46 @@ button:hover {
     margin-bottom:20px;
     box-shadow:0 5px 15px rgba(0,0,0,.1);
 }
+/* ================= PROFESSIONAL ================= */
+
+.resume.professional {
+    border-left: 10px solid #2563eb;
+    padding-left: 30px;
+}
+
+.resume.professional h1 {
+    color: #2563eb;
+    text-transform: uppercase;
+}
+
+/* ================= MODERN ================= */
+
+.resume.modern {
+    background: linear-gradient(135deg,#ffffff,#e0f2fe);
+}
+
+.resume.modern h1 {
+    background: #2563eb;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* ================= CREATIVE ================= */
+
+.resume.creative {
+    background: #111827;
+    color: white;
+}
+
+.resume.creative h1,
+.resume.creative h3 {
+    color: #22c55e;
+}
+
+.resume.creative .skill-tag {
+    background: #22c55e;
+    color: black;
+}
 }
