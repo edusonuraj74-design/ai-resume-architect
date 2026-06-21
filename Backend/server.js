@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 console.log("NEW SERVER FILE LOADED");
 const express = require("express");
 const cors = require("cors");
@@ -51,33 +53,32 @@ app.post("/api/generate-summary", (req, res) => {
 
 // ATS Score Analyzer API
 app.post("/api/analyze", (req, res) => {
-    const { skills, project } = req.body;
-
-    if (!skills && !project) {
-        return res.status(400).json({
-            error: "Skills or project required"
-        });
-    }
-
-    let score = 60;
-
-    if (skills) {
-        if (skills.includes("Java")) score += 10;
-        if (skills.includes("JavaScript")) score += 10;
-        if (skills.includes("Python")) score += 10;
-    }
-
-    if (project && project.length > 20) {
-        score += 10;
-    }
-
-    if (score > 100) score = 100;
-
+    
     res.json({
         atsScore: score,
         suggestion: "Add more real-world projects and optimize resume keywords for ATS systems."
     });
 });
+
+
+// ================= SAVE RESUME API =================
+
+let resumes = [];
+
+app.post("/api/save-resume", (req, res) => {
+
+    const resumeData = req.body;
+
+    resumes.push(resumeData);
+
+    console.log("Resume Saved:", resumeData);
+
+    res.json({
+        success: true,
+        message: "Resume Saved Successfully"
+    });
+});
+
 
 // Start Server
 app.listen(3000, () => {

@@ -1,3 +1,4 @@
+
 const API_BASE = "http://localhost:3000";
 
 // ===================== RESUME DOWNLOAD =====================
@@ -451,5 +452,33 @@ function showSection(section) {
 
     if (section === "settings") {
         settings.style.display = "block";
+    }
+}
+    async function saveResume() {
+
+    const resumeData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        skills: document.getElementById("skills").value
+    };
+
+    try {
+
+        const res = await fetch("http://localhost:3000/api/save-resume", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(resumeData)
+        });
+
+        const data = await res.json();
+
+        alert(data.message);
+
+    } catch (error) {
+        console.log(error);
+        alert("Error saving resume");
     }
 }

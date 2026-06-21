@@ -117,6 +117,9 @@
 
                 <h2>Resume Builder</h2>
 
+                <label>Resume Name</label>
+<input type="text" id="resumeName" placeholder="Web Developer Resume">
+
                 <label>Name</label>
                 <input type="text" id="name">
 
@@ -178,6 +181,10 @@
                 </select>
 
                 <button onclick="generateResume()">Generate Resume</button>
+                <button onclick="saveResume()">
+                Save Resume
+                 </button>
+                 
                 <button onclick="downloadResume()">Download Resume</button>
                 <button onclick="printResume()">Print Resume</button>
                 <button onclick="clearForm()">Clear Form</button>
