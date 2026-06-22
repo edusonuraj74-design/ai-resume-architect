@@ -79,6 +79,14 @@ app.post("/api/save-resume", (req, res) => {
     });
 });
 
+console.log("RESUMES API LOADED");
+
+app.get("/api/resumes", (req, res) => {
+    res.json(resumes);
+});
+
+console.log("RESUMES ROUTE REGISTERED");
+
 
 // Start Server
 app.listen(3000, () => {
