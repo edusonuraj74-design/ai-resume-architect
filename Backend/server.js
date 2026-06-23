@@ -85,6 +85,18 @@ app.get("/api/resumes", (req, res) => {
     res.json(resumes);
 });
 
+app.delete("/api/resume/:id", (req, res) => {
+
+    const id = parseInt(req.params.id);
+
+    resumes.splice(id, 1);
+
+    res.json({
+        success: true,
+        message: "Resume Deleted Successfully"
+    });
+});
+
 console.log("RESUMES ROUTE REGISTERED");
 
 

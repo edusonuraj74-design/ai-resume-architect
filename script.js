@@ -281,10 +281,13 @@ function login() {
         document.getElementById("app").style.display = "flex";
 
     showSection("dashboard");
+    loadResumes();
+
     } else {
         document.getElementById("loginError").innerText = "Wrong username or password";
     }
 }
+
 
 // ===================== LOGOUT =====================
 function logout() {
@@ -422,6 +425,36 @@ function livePreview() {
         }
     });
 
+}
+
+async function loadResumes() {
+    const res = await fetch("http://localhost:3000/api/resumes");
+    const data = await res.json();
+
+    const box = document.getElementById("savedResumes");
+
+    box.innerHTML = data.map((r,index) => `
+    <div class="card">
+        <h4>${r.name}</h4>
+        <p>${r.email}</p>
+
+        <button onclick="deleteResume(${index})">
+            Delete
+        </button>
+    </div>
+`).join("");
+}
+
+async function deleteResume(id) {
+
+    await fetch(
+        `http://localhost:3000/api/resume/${id}`,
+        {
+            method: "DELETE"
+        }
+    );
+
+    loadResumes();
 }
 
     // ===================== SIDEBAR NAVIGATION =====================
