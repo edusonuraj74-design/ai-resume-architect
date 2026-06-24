@@ -396,5 +396,13 @@ button:hover {
 .resume.creative .skill-tag {
     background: #22c55e;
     color: black;
+} 
+.footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    background: #222;
+    color: white;
+    font-size: 14px;
 }
 }

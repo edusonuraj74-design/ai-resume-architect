@@ -431,6 +431,8 @@ async function loadResumes() {
     const res = await fetch("http://localhost:3000/api/resumes");
     const data = await res.json();
 
+    document.getElementById("resumeCount").innerText = data.length;
+
     const box = document.getElementById("savedResumes");
 
     box.innerHTML = data.map((r,index) => `
@@ -509,6 +511,8 @@ function showSection(section) {
         const data = await res.json();
 
         alert(data.message);
+
+        loadResumes();
 
     } catch (error) {
         console.log(error);

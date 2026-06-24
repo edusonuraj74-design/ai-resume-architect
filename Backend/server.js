@@ -53,7 +53,23 @@ app.post("/api/generate-summary", (req, res) => {
 
 // ATS Score Analyzer API
 app.post("/api/analyze", (req, res) => {
-    
+
+    const { skills, project } = req.body;
+
+    let score = 60;
+
+    if (skills) {
+        if (skills.includes("Java")) score += 10;
+        if (skills.includes("JavaScript")) score += 10;
+        if (skills.includes("Python")) score += 10;
+    }
+
+    if (project && project.length > 20) {
+        score += 10;
+    }
+
+    if (score > 100) score = 100;
+
     res.json({
         atsScore: score,
         suggestion: "Add more real-world projects and optimize resume keywords for ATS systems."
