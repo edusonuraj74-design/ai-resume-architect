@@ -1,4 +1,6 @@
-const fs = require("fs");
+//  const mongoose = require("mongoose");
+ 
+ const fs = require("fs");
 
 console.log("NEW SERVER FILE LOADED");
 const express = require("express");
@@ -16,7 +18,21 @@ console.log(path.join(__dirname, "../index.html"));
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend files (index.html, style.css, script.js)
+// const resumeSchema = new mongoose.Schema({
+//     name: String,
+//     email: String,
+//     phone: String,
+//     skills: String,
+//     createdAt: {
+//         type: Date,
+//         default: Date.now
+//     }
+// });
+
+// const Resume = mongoose.model("Resume", resumeSchema);
+
+ //Serve frontend files (index.html, style.css, script.js)
+
 app.use(express.static(path.join(__dirname, "../")));
 
 // Home Route
@@ -116,7 +132,25 @@ app.delete("/api/resume/:id", (req, res) => {
 console.log("RESUMES ROUTE REGISTERED");
 
 
-// Start Server
+// const dns = require("dns");
+
+// dns.resolveSrv(
+//   "_mongodb._tcp.cluster0.jqsqdwi.mongodb.net",
+//   (err, addresses) => {
+//     console.log("DNS TEST:", err || addresses);
+//   }
+// );
+
+
+
+// mongoose.connect(
+// "mongodb+srv://edusonuraj74_db_user:Rahul%40804421@cluster0.jqsqdwi.mongodb.net/ResumeDB?retryWrites=true&w=majority"
+// )
+// .then(() => console.log("✅ MongoDB Connected"))
+// .catch(err => console.log("MongoDB Error:", err));
+
+
+//Start Server
 app.listen(3000, () => {
     console.log("🚀 Server running on http://localhost:3000");
 });
