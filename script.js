@@ -1,3 +1,4 @@
+let editIndex = -1;
 
 const API_BASE = "http://localhost:3000";
 
@@ -518,4 +519,55 @@ function showSection(section) {
         console.log(error);
         alert("Error saving resume");
     }
+    function editResume(index){
+
+    editIndex = index;
+
+    let resume = resumes[index];
+
+    document.getElementById("resumeName").value = resume.resumeName;
+    document.getElementById("name").value = resume.name;
+    document.getElementById("email").value = resume.email;
+    document.getElementById("phone").value = resume.phone;
+    document.getElementById("education").value = resume.education;
+    document.getElementById("skills").value = resume.skills;
+    document.getElementById("project").value = resume.project;
+    document.getElementById("experience").value = resume.experience;
+    document.getElementById("certification").value = resume.certification;
+    document.getElementById("languages").value = resume.languages;
+    document.getElementById("summary").value = resume.summary;
+    document.getElementById("linkedin").value = resume.linkedin;
+    document.getElementById("github").value = resume.github;
+
+    alert("Resume Loaded Successfully");
+}
+function updateResume(){
+
+    if(editIndex==-1){
+        alert("Please Select Resume First");
+        return;
+    }
+
+    resumes[editIndex]={
+
+        resumeName:document.getElementById("resumeName").value,
+        name:document.getElementById("name").value,
+        email:document.getElementById("email").value,
+        phone:document.getElementById("phone").value,
+        education:document.getElementById("education").value,
+        skills:document.getElementById("skills").value,
+        project:document.getElementById("project").value,
+        experience:document.getElementById("experience").value,
+        certification:document.getElementById("certification").value,
+        languages:document.getElementById("languages").value,
+        summary:document.getElementById("summary").value,
+        linkedin:document.getElementById("linkedin").value,
+        github:document.getElementById("github").value
+
+    };
+
+    displaySavedResumes();
+
+    alert("Resume Updated Successfully");
+}
 }
