@@ -311,6 +311,7 @@ button:hover {
     .right-panel {
         width: 100%;
     }
+}
 
     #skillSuggestions{
     margin:10px 0 15px;
@@ -404,5 +405,4 @@ button:hover {
     background: #222;
     color: white;
     font-size: 14px;
-}
 }

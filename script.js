@@ -492,12 +492,22 @@ function showSection(section) {
 }
     async function saveResume() {
 
-    const resumeData = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        skills: document.getElementById("skills").value
-    };
+   const resumeData = {
+    resumeName: document.getElementById("resumeName").value,
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    education: document.getElementById("education").value,
+    skills: document.getElementById("skills").value,
+    project: document.getElementById("project").value,
+    experience: document.getElementById("experience").value,
+    certification: document.getElementById("certification").value,
+    languages: document.getElementById("languages").value,
+    summary: document.getElementById("summary").value,
+    linkedin: document.getElementById("linkedin").value,
+    github: document.getElementById("github").value
+};
+console.log(resumeData);
 
     try {
 
@@ -519,6 +529,7 @@ function showSection(section) {
         console.log(error);
         alert("Error saving resume");
     }
+}
     function editResume(index){
 
     editIndex = index;
@@ -570,4 +581,4 @@ function updateResume(){
 
     alert("Resume Updated Successfully");
 }
-}
+

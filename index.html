@@ -74,25 +74,31 @@
 
     <div class="dashboard-cards">
 
-        <div class="card">
-            <h3>Total ATS Score</h3>
-            <p id="dashboardATS">0</p>
-        </div>
-
-        <div class="card">
-            <h3>Resume Completion</h3>
-            <p id="dashboardCompletion">0%</p>
-    
-            <h3>Saved Resumes</h3>
-        <div id="savedResumes"></div>
-        </div>
-
-        <div class="card">
-    <h3>Saved Resumes</h3>
-    <p id="resumeCount">0</p>
+    <div class="card">
+        <h3>Total ATS Score</h3>
+        <p id="dashboardATS">0</p>
     </div>
 
-    <h3>About Project</h3>
+    <div class="card">
+        <h3>Resume Completion</h3>
+        <p id="dashboardCompletion">0%</p>
+    </div>
+
+    <div class="card">
+        <h3>Saved Resumes</h3>
+        <p id="resumeCount">0</p>
+    </div>
+
+</div>
+
+<hr>
+
+<h3>Recent Saved Resumes</h3>
+<div id="savedResumes"></div>
+
+<hr>
+
+<h3>About Project</h3>
 
 <p>
 AI Resume Architect helps users create professional resumes,
@@ -100,9 +106,10 @@ analyze ATS score, get AI-generated summaries,
 and manage multiple resumes efficiently.
 </p>
 
-    </div>
+<hr>
 
-    <h3>Project Status</h3>
+<h3>Project Status</h3>
+
 <p>✅ Resume Builder Active</p>
 <p>✅ ATS Analyzer Active</p>
 <p>✅ AI Summary Active</p>
@@ -211,19 +218,18 @@ and manage multiple resumes efficiently.
                 </select>
 
                 <button onclick="generateResume()">Generate Resume</button>
-                <button onclick="editResume(${index})">Edit</button>
-                <button onclick="saveResume()">Save Resume </button>
-                <button onclick="editResume(${index})">Edit</button>
-                <button onclick="updateResume()"> Update Resume</button>
-                <button onclick="editResume(${index})">Edit</button>
-                <button onclick="downloadResume()">Download Resume</button>
-                <button onclick="editResume(${index})">Edit</button>
-                <button onclick="printResume()">Print Resume</button>
-                <button onclick="editResume(${index})">Edit</button>
-                <button onclick="clearForm()">Clear Form</button>
-                <button onclick="editResume(${index})"> Edit</button>
-                <button onclick="toggleDarkMode()">Dark Mode</button>
-                <button onclick="editResume(${index})">Edit </button>
+
+<button onclick="saveResume()">Save Resume</button>
+
+<button onclick="updateResume()">Update Resume</button>
+
+<button onclick="downloadResume()">Download Resume</button>
+
+<button onclick="printResume()">Print Resume</button>
+
+<button onclick="clearForm()">Clear Form</button>
+
+<button onclick="toggleDarkMode()">Dark Mode</button>
 
                 <hr>
 
